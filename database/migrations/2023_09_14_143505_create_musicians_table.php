@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('musicians', function (Blueprint $table) {
-            $table->id();
+            $table->unsignedBigInteger('user_id')->primary();
             $table->date('birth_date');
             $table->string('address',70);
             $table->string('num_phone',50);
@@ -23,6 +23,8 @@ return new class extends Migration
             $table->float('price',6,2);
             $table->string('musical_genre');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
