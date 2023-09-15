@@ -18,7 +18,9 @@ class Musician extends Model
         return $this->hasMany(Message::class);
     }
 
-
+    public function review(){
+        return $this->hasMany(Review::class);
+    }
 }
 
 
