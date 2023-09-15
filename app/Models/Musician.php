@@ -25,8 +25,10 @@ class Musician extends Model
         return $this->hasMany(Review::class);
     }
 
-
-
+    public function sponsor()
+    {
+        return $this->belongsToMany(Sponsor::class);
+    }
 
 
 
