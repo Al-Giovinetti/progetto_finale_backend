@@ -11,12 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('musicians_sponsors', function (Blueprint $table) {
+        Schema::create('musician_sponsor', function (Blueprint $table) {
             $table->unsignedBigInteger('musician_id');
+            $table->foreign('musician_id')->references('user_id')->on('musicians')->onUpdate('cascade')->onDelete('cascade');
+
             $table->unsignedBigInteger('sponsor_id');
-            $table->datetime('sponsor_start');
-            $table->datetime('sponsor_end');
-            $table->timestamps();
+            $table->foreign('sponsor_id')->references('id')->on('sponsors')->onUpdate('cascade')->onDelete('cascade');
+
+            $table->primary(['musician_id', 'sponsor_id']);
+
+
         });
     }
 
@@ -25,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('musicians_sponsors');
+        Schema::dropIfExists('musician_sponsor');
     }
 };

@@ -23,7 +23,7 @@ class UserSeeder extends Seeder
         $gino->save();
 
 
-        for($i = 0; $i < 100; $i++){
+        for($i = 0; $i < 10; $i++){
             $newUser = new User();
             $newUser->name = $faker->firstName();
             $newUser->email = $faker->email();
