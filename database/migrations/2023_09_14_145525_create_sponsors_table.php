@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('sponsor_type', 20);
             $table->float('price',4,2);
-            $table->timestamp('duration');
+            $table->string('duration');
             $table->timestamps();
         });
     }
