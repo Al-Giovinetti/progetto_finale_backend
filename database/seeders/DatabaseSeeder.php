@@ -21,25 +21,10 @@ class DatabaseSeeder extends Seeder
 
         $this->call([
             UserSeeder::class,
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            MusicalInstrumentSeeder::class,
+            SponsorSeeder::class,
             MusicianSeeder::class,
-            MusicalInstrumentMusicianSeeder::class,
+            MessageSeeder::class,
+            MusicianSponsorSeeder::class,
         ]);
     }
 }
