@@ -10,15 +10,47 @@ class Musician extends Model
 {
     use HasFactory;
 
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function messages(){
+    public function messages()
+    {
         return $this->hasMany(Message::class);
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function musicalInstruments()
+    {
+        return $this->belongsToMany(MusicalInstrument::class);
+    }
 }
-
-

@@ -8,4 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class MusicalInstrument extends Model
 {
     use HasFactory;
+
+    public function musicians()
+    {
+        return $this->belongsToMany(Musician::class);
+    }
 }
