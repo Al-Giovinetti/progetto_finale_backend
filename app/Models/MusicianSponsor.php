@@ -10,5 +10,6 @@ class MusicianSponsor extends Model
     use HasFactory;
 
     protected $table = 'musician_sponsor';
+    public $timestamps = false;
 
 }
