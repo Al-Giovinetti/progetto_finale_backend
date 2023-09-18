@@ -25,38 +25,13 @@ class Musician extends Model
         return $this->hasMany(Review::class);
     }
 
-    public function sponsor()
-    {
-        return $this->belongsToMany(Sponsor::class)->withPivot('data_inizio', 'data_fine');
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function musicalInstruments()
     {
         return $this->belongsToMany(MusicalInstrument::class);
+    }
+
+    public function sponsor()
+    {
+        return $this->belongsToMany(Sponsor::class)->withPivot('data_inizio', 'data_fine');
     }
 }
