@@ -27,7 +27,7 @@ class Musician extends Model
 
     public function sponsor()
     {
-        return $this->belongsToMany(Sponsor::class);
+        return $this->belongsToMany(Sponsor::class)->withPivot('data_inizio', 'data_fine');
     }
 
 

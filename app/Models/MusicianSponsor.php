@@ -9,6 +9,8 @@ class MusicianSponsor extends Model
 {
     use HasFactory;
 
-    protected $table = 'musician_sponsor';
-
+    protected $fillable = [
+        'data_inizio',
+        'data_fine',
+    ];
 }

@@ -22,11 +22,15 @@ class MusicianSponsorSeeder extends Seeder
         $musicians = Musician::all()->pluck('user_id');
 
         foreach ($sponsors as $sponsor) {
-            $sponsor->musicians()->sync([$faker->randomElement($musicians)]);
-
+            $sponsor->musicians()->sync(
+                [$faker->randomElement($musicians)],
+                /*
+                [
+                    'data_inizio' => $faker->dateTimeBetween('-1 year', 'now'),
+                    'data_fine' => $faker->dateTimeBetween('now', '+1 year'),
+                ]
+                */
+            );
         }
-
-
-
     }
 }
