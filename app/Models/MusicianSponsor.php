@@ -12,4 +12,6 @@ class MusicianSponsor extends Model
     protected $table = 'musician_sponsor';
     public $timestamps = false;
 
+
+  
 }

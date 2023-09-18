@@ -37,6 +37,7 @@ class MusicianSponsorSeeder extends Seeder
             }
 
             $newMusicianSponsor->save();
+
         }
     }
     

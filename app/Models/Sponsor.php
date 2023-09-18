@@ -10,8 +10,8 @@ class Sponsor extends Model
     use HasFactory;
 
 
-    public function musicians(){
-        return $this->belongsToMany(Musician::class);
+    public function musicians()
+    {
+        return $this->belongsToMany(Musician::class)->withPivot('data_inizio', 'data_fine');
     }
-
 }

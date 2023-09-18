@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+//use Illuminate\Support\Facades\DB;
 
 return new class extends Migration
 {
@@ -19,9 +20,11 @@ return new class extends Migration
             $table->foreign('sponsor_id')->references('id')->on('sponsors')->onUpdate('cascade')->onDelete('cascade');
 
             $table->primary(['musician_id', 'sponsor_id']);
+
             
             $table->dateTime('sponsor_start')->default(null);
             $table->dateTime('sponsor_end')->default(null);
+
 
         });
     }
