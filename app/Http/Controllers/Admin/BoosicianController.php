@@ -74,9 +74,19 @@ class BoosicianController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Musician $loggedMusician)
     {
-        //
+        $loggedMusician = Auth::user();
+/*         $currentMusician = Musician::where('user_id', $loggedMusician)->get();
+ */        /* $project = Project::findOrFail($id); */
+        $musician = Musician::all();
+        $currentMusician = $musician[($loggedMusician->id) - 1];
+
+        /* return dd($currentMusician); */
+
+        return view('admin.musicians.edit', compact('currentMusician', 'loggedMusician'));
+
+        /* return dd($loggedMusician); */
     }
 
     /**
@@ -84,7 +94,7 @@ class BoosicianController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return dd($request);
     }
 
     /**
