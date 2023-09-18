@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('musicians', function (Blueprint $table) {
-            $table->id();
-            $table->increments('user_id');
+            // $table->id();
+            $table->unsignedBigInteger('user_id');
             $table->date('birth_date');
             $table->string('address',70);
             $table->string('num_phone',50);
