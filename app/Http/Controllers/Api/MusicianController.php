@@ -42,7 +42,12 @@ class MusicianController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $musician=Musician::findorFail($id);
+        return response()->json($musician);
+        [
+            'success'=>true,
+            'results'=>$musician
+        ];
     }
 
     /**

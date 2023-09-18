@@ -27,7 +27,7 @@ class MusicianSponsorSeeder extends Seeder
             $newMusicianSponsor->sponsor_start = $faker->dateTimeBetween('-30 week');
 
             $dataStart= $newMusicianSponsor->sponsor_start->format('Y-m-d H:i:s');
-            var_dump($dataStart);
+            //var_dump($dataStart);
             if($newMusicianSponsor->sponsor_id == 1){
                 $newMusicianSponsor->sponsor_end = date('Y-m-d H:i:s',strtotime('+1 day',strtotime($dataStart)));
             }elseif($newMusicianSponsor->sponsor_id == 2){

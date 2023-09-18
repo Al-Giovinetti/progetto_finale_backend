@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/musicians',[ApiMusicianController::class,'index'])->name('api.musicians.index');
+Route::get('/musicians/{id}',[ApiMusicianController::class,'show'])->name('api.musicias.show');
