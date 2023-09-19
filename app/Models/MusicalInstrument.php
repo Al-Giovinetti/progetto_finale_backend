@@ -11,6 +11,6 @@ class MusicalInstrument extends Model
 
     public function musicians()
     {
-        return $this->belongsToMany(Musician::class);
+        return $this->belongsToMany(Musician::class, 'musical_instrument_musician' , 'musical_instrument_id', 'musician_id');
     }
 }
