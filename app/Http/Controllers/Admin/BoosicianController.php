@@ -32,29 +32,35 @@ class BoosicianController extends Controller
     public function store(Request $request)
     {
 
-        // NON TOCCARE MAI PIU
-        // NON TOCCARE MAI PIU
-        // NON TOCCARE MAI PIU
-        // NON TOCCARE MAI PIU
-        // NON TOCCARE MAI PIU
-        // NON TOCCARE MAI PIU
 
 
-        $data = $request->all();
+        $data = $request->validate([
+            'surname' => 'required',
+            'birth_date' => 'required|date',
+            'address' => 'required',
+            'num_phone' => 'required',
+            'image' => 'required', 
+            'bio' => 'required',
+            'cv' => 'required',
+            'price' => 'required|numeric|max:9999',
+            'musical_genre' => 'required',
+        ]);
+
+
         $user = Auth::user();
 
-        $newMusician = new Musician();
-        $newMusician->user_id = $user->id;
-        $newMusician->surname = $data['surname'];
-        $newMusician->birth_date = $data['birth_date'];
-        $newMusician->address = $data['address'];
-        $newMusician->num_phone = $data['num_phone'];
-        $newMusician->image = $data['image'];
-        $newMusician->bio = $data['bio'];
-        $newMusician->cv = $data['cv'];
-        $newMusician->price = $data['price'];
-         $newMusician->musical_genre = $data['musical_genre'];
-
+        $newMusician = Musician::create([
+            'user_id' => $user->id,
+            'surname' => $data['surname'],
+            'birth_date' => $data['birth_date'],
+            'address' => $data['address'],
+            'num_phone' => $data['num_phone'],
+            'image' => $data['image'],
+            'bio' => $data['bio'],
+            'cv' => $data['cv'],
+            'price' => $data['price'],
+            'musical_genre' => $data['musical_genre'],
+        ]);
 
         $newMusician->save();
 
@@ -96,7 +102,17 @@ class BoosicianController extends Controller
     {
         $user = Auth::user();
         $currentMusician = $user->musician;  //recupero il profilo del musicista assocciato all'utente attualmente connesso
-        $data = $request->all();
+        $data = $request->validate([
+            'surname' => 'required',
+            'birth_date' => 'required|date',
+            'address' => 'required',
+            'num_phone' => 'required',
+            'image' => 'required', 
+            'bio' => 'required',
+            'cv' => 'required',
+            'price' => 'required|numeric|max:9999',
+            'musical_genre' => 'required',
+        ]);
         
         $currentMusician->update([
             'user_id' => $user->id,
