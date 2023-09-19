@@ -95,36 +95,28 @@ class BoosicianController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Musician $currentMusician, string $id)
-    {   
-        
-        // 
-        // $musician->surname = $request['surname'];
-        // $musician->birth_date = $request['birth_date'];
-        // $musician->address = $request['address'];
-        // $musician->num_phone = $request['num_phone'];
-        // $musician->image = $request['image'];
-        // $musician->bio = $request['bio'];
-        // $musician->cv = $request['cv'];
-        // $musician->price = $request['price'];
-        // $musician->musical_genre = $request['musical_genre'];
-        
+    public function update(Request $request, int $id)
+    {
         $user = Auth::user();
-        
+        $currentMusician = $user->musician;  //recupero il profilo del musicista assocciato all'utente attualmente connesso
         $data = $request->all();
-         $currentMusician->update([
-                 'user_id' => $user->id,
-                 'surname' => $data['surname'],
-                 'birth_date' => $data['birth_date'],
-                 'address' => $data['address'],
-                 'num_phone' => $data['num_phone'],
-                 'image' => $data['image'],
-                 'bio' => $data['bio'],
-                 'cv' => $data['cv'],
-                 'price' => $data['price'],
-                 'musical_genre' => $data['musical_genre'],
-             ]);
-        return dd($data, $currentMusician);
+        
+        $currentMusician->update([
+            'user_id' => $user->id,
+            'surname' => $data['surname'],
+            'birth_date' => $data['birth_date'],
+            'address' => $data['address'],
+            'num_phone' => $data['num_phone'],
+            'image' => $data['image'],
+            'bio' => $data['bio'],
+            'cv' => $data['cv'],
+            'price' => $data['price'],
+            'musical_genre' => $data['musical_genre'],
+        ]);
+
+        $currentMusician->save();
+    
+        return ('hai modificato con successo');
     }
 
     /**
