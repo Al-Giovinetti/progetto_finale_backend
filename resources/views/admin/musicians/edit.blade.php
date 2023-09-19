@@ -83,7 +83,14 @@
     </div>
 
 
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary">Update</button>
+    <form action="{{ route('admin.musicians.destroy', $currentMusician) }}" method="POST">
+        @csrf
+        @method('delete')
+        <button type="submit" class="btn btn-danger">Delete</button>
+    </form>
+    
+
   </form>
 
 @endsection

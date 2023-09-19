@@ -15,7 +15,12 @@ class BoosicianController extends Controller
      */
     public function index()
     {
-        //
+        $musician=Musician::all();
+        $user= Auth::user();
+        $currentMusician=$user->musician;
+
+        
+        return view('admin.musicians.show',compact('currentMusician','musician','user'));
     }
 
     /**
@@ -142,6 +147,6 @@ class BoosicianController extends Controller
     {
         $user = User::find($id);
         $user->delete();
-        return redirect()->route('home');
+        return redirect()->route('admin.home');
     }
 }
