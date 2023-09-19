@@ -93,8 +93,23 @@ class BoosicianController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request, string $id)
-    {
-        return dd($request);
+    {   
+        
+        /* $musician->user_id = $id;
+        $musician->surname = $request['surname'];
+        $musician->birth_date = $request['birth_date'];
+        $musician->address = $request['address'];
+        $musician->num_phone = $request['num_phone'];
+        $musician->image = $request['image'];
+        $musician->bio = $request['bio'];
+        $musician->cv = $request['cv'];
+        $musician->price = $request['price'];
+        $musician->musical_genre = $request['musical_genre']; */
+        $musician = Musician::all();
+        $currentMusician = $musician[($id) - 1];
+        $currentMusician->update($request);
+        return dd($currentMusician);
+        /* return dd($id, $request); */
     }
 
     /**
