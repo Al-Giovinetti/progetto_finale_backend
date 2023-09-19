@@ -66,9 +66,12 @@ class BoosicianController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
+    public function show(Musician $musician)
+    {   
+        $musician=Musician::all();
+        $user= Auth::user();
+        $currentMusician=$user->musician;
+        return view('admin.musicians.show',compact('currentMusician','musician'));
     }
 
     /**
