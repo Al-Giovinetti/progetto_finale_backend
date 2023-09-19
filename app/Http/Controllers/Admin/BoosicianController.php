@@ -72,9 +72,12 @@ class BoosicianController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
-    {
-        //
+    public function show(Musician $musician)
+    {   
+        $musician=Musician::all();
+        $user= Auth::user();
+        $currentMusician=$user->musician;
+        return view('admin.musicians.show',compact('currentMusician','musician'));
     }
 
     /**
@@ -135,8 +138,10 @@ class BoosicianController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy($id)
     {
-        //
+        $user = User::find($id);
+        $user->delete();
+        return redirect()->route('home');
     }
 }
