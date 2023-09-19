@@ -10,6 +10,21 @@ class Musician extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'user_id';
+
+    protected $fillable = [
+        'user_id',
+        'surname',
+        'birth_date',
+        'address',
+        'num_phone',
+        'image',
+        'bio',
+        'cv',
+        'price',
+        'musical_genre',
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -40,6 +55,6 @@ class Musician extends Model
 
     public function sponsor()
     {
-        return $this->belongsToMany(Sponsor::class)->withPivot('data_inizio', 'data_fine');
+        return $this->belongsToMany(Sponsor::class);
     }
 }
