@@ -10,7 +10,7 @@ class Musician extends Model
 {
     use HasFactory;
 
-    protected $primaryKey = 'user_id';
+    protected $primaryKey = 'id';
 
     protected $fillable = [
         'user_id',
@@ -35,7 +35,7 @@ class Musician extends Model
         return $this->hasMany(Message::class);
     }
 
-    public function review()
+    public function reviews()
     {
         return $this->hasMany(Review::class);
     }
