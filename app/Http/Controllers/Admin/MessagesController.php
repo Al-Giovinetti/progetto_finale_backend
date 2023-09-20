@@ -1,24 +1,26 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Models\Message;
 use App\Models\Musician;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
-class MusicianController extends Controller
+class MessagesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $musicians = Musician::paginate(10);
-        return response()->json($musicians);
-        [
-            'success'=>true,
-            'results'=>$musicians
-        ];
+        $user = Auth::user();
+        $musicianMessages = Message::where('musician_id', $user->id)->get();
+        $musician = Musician::all();
+        $messages = Message::all();
+    
+        return view('admin.messages.index', compact('messages', 'musicianMessages', 'musician'));
     }
 
     /**
@@ -42,12 +44,7 @@ class MusicianController extends Controller
      */
     public function show(string $id)
     {
-        $musician=Musician::findorFail($id);
-        return response()->json($musician);
-        [
-            'success'=>true,
-            'results'=>$musician
-        ];
+        
     }
 
     /**
@@ -73,12 +70,4 @@ class MusicianController extends Controller
     {
         //
     }
-
-
-
-
-
-
-
-
 }

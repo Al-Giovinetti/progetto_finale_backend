@@ -17,12 +17,17 @@ class MessageSeeder extends Seeder
     {
         $musicians= Musician::all();
         foreach($musicians as $musician){
+            for($i = 0; $i < 10; $i++){
             $newMessage = new Message();
             $newMessage->musician_id = $musician->user_id;
             $newMessage->name=$faker->name();
             $newMessage->mail=$faker->email();
             $newMessage->message= $faker->text();
             $newMessage->save();
+            }
         }
+
+
+
     }
 }
