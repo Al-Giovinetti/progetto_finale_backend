@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\MusicalInstrument;
+use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Musician;
@@ -42,6 +43,16 @@ class MusicianController extends Controller
         [
             'success'=>true,
             'results'=>$instruments
+        ];
+    }
+
+    public function review(){
+        $reviews = Review::all();
+
+        return response()->json($reviews);
+        [
+            'success'=>true,
+            'results'=>$reviews
         ];
     }
 
