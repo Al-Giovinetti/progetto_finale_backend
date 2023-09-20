@@ -20,12 +20,6 @@
 
         
         <div class="button d-flex gap-3">
-
-            <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST">
-                @csrf
-                @method('delete')
-                <button type="submit" class="btn btn-danger btn-sm">Cancella</button>
-            </form>
             @if (!$currentMusician)
                 <form action="{{ route('admin.musicians.create') }}" method="GET">
                     @csrf
@@ -33,8 +27,13 @@
                 </form>
             @else
                 <a href="{{ route('admin.musicians.edit', ['musician' => $currentMusician->id]) }}" class="btn btn-primary btn-sm">Edit</a>
+                <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST">
+                    @csrf
+                    @method('delete')
+                    <button type="submit" class="btn btn-danger btn-sm">Cancella</button>
+                </form>
             @endif
-            
+
         </div>
     </div>
 </div>

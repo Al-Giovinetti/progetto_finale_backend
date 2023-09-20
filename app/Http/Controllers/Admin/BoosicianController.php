@@ -82,7 +82,7 @@ class BoosicianController extends Controller
         $musician=Musician::all();
         $user= Auth::user();
         $currentMusician=$user->musician;
-        return view('admin.musicians.show',compact('currentMusician','musician'));
+        return view('admin.musicians.show',compact('currentMusician','musician', 'user'));
     }
 
     /**
@@ -91,16 +91,18 @@ class BoosicianController extends Controller
     public function edit(Musician $loggedMusician)
     {
         $loggedMusician = Auth::user();
-/*         $currentMusician = Musician::where('user_id', $loggedMusician)->get();
- */        /* $project = Project::findOrFail($id); */
         $musician = Musician::all();
-        $currentMusician = $musician[($loggedMusician->id) - 1];
+        // $currentMusician = $musician[($loggedMusician->id) - 1];
 
-        /* return dd($currentMusician); */
+        $currentMusician = $musician;
+
+        $currentMusician = Musician::findOrFail($loggedMusician->id);
+
+        
 
         return view('admin.musicians.edit', compact('currentMusician', 'loggedMusician'));
+        // return dd($currentMusician);
 
-        /* return dd($loggedMusician); */
     }
 
     /**
@@ -136,8 +138,8 @@ class BoosicianController extends Controller
         ]);
 
         $currentMusician->save();
-    
-        return ('hai modificato con successo');
+        return view('admin.musicians.show',compact('currentMusician', 'user'));
+
     }
 
     /**
