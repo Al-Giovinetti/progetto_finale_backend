@@ -17,11 +17,13 @@ class ReviewSeeder extends Seeder
     {
         $musicians = Musician::all();
         foreach($musicians as $musician){
+            for($i = 0; $i < 10; $i++){
             $newReview = new Review();
             $newReview -> musician_id = $musician->user_id;
             $newReview -> content = $faker->text();
             $newReview -> vote = $faker->numberBetween(0, 5);
             $newReview -> save();
+            }
         }
     }
 }
