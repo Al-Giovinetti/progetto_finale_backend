@@ -17,7 +17,9 @@ class ReviewSeeder extends Seeder
     {
         $musicians = Musician::all();
         foreach($musicians as $musician){
-            for($i = 0; $i < 10; $i++){
+            $randomNumber = rand(1, 20);
+            
+            for($i = 0; $i <= $randomNumber; $i++){
             $newReview = new Review();
             $newReview -> musician_id = $musician->user_id;
             $newReview -> content = $faker->text();
