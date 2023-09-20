@@ -83,7 +83,7 @@
     </div>
 
 
-    <button type="submit" class="btn btn-primary">Update</button>
+    {{-- <button type="submit" class="btn btn-primary">Update</button> --}}
     <form action="{{ route('admin.musicians.destroy', $currentMusician) }}" method="POST">
         @csrf
         @method('delete')

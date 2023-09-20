@@ -69,7 +69,7 @@ class BoosicianController extends Controller
 
         $newMusician->save();
 
-        return ('hai aggiunto il tuo profilo');
+        return redirect()->route('admin.musicians.show', $user);
 
 
     }
