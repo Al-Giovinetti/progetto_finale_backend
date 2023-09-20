@@ -16,13 +16,14 @@ class MusicianController extends Controller
      */
     public function index()
     {
-        $musicians = Musician::paginate(10);
+        $musicians = Musician::with('user', 'reviews') ->paginate(10);
 
-        return response()->json($musicians);
-        [
-            'success'=>true,
-            'results'=>$musicians
-        ];
+        return response()->json(
+            [
+                'success'=>true,
+                'results'=>$musicians
+            ]
+        );
     }
 
     public function user(){
