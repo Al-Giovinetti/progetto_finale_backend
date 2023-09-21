@@ -15,10 +15,10 @@ return new class extends Migration
             $table->unsignedBigInteger("musical_instrument_id");
             $table->foreign("musical_instrument_id")->references("id")->on("musical_instruments")->onUpdate('cascade')->onDelete('cascade');
 
-            $table->unsignedBigInteger("musician_user_id");
-            $table->foreign("musician_user_id")->references("user_id")->on("musicians")->onUpdate('cascade')->onDelete('cascade');
+            $table->unsignedBigInteger("musician_id");
+            $table->foreign("musician_id")->references("user_id")->on("musicians")->onUpdate('cascade')->onDelete('cascade');
 
-            $table->primary(['musical_instrument_id', 'musician_user_id']);
+            $table->primary(['musical_instrument_id', 'musician_id']);
         });
     }
 
