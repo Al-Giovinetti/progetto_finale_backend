@@ -27,6 +27,26 @@
         <p>Genere Musicale: {{ $currentMusician->musical_genre ?? ''}}</p>
 
 
+
+
+            @if($user->musician->musicalInstruments)
+                    <div>
+                        <h2>
+                            Strumenti Musicali
+                        </h2>
+                        <ul>
+                            @foreach ($user->musician->musicalInstruments as $musicalInstrument)
+                            <li>
+                                {{ $musicalInstrument->name }}
+                            </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                    @endif
+
+
+
+
         
         <div class="button d-flex gap-3">
             @if (!$currentMusician)

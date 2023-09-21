@@ -15,11 +15,11 @@ class MusicalInstrumentMusicianSeeder extends Seeder
      */
     public function run(Faker $faker): void
     {
-        $musiciansIds = Musician::all()->pluck('user_id');
-        $instruments = MusicalInstrument::all();
+        $instrumentIds = MusicalInstrument::all()->pluck('id')->toArray();
+        $musicians = Musician::all();
 
-        foreach ($instruments as $instrument) {
-            $instrument->musicians()->sync([$faker->randomElement($musiciansIds), $faker->randomElement($musiciansIds)]);
+        foreach ($musicians as $musician) {
+            $musician->musicalInstruments()->sync([$faker->randomElement($instrumentIds)]);
         }
     }
 }
