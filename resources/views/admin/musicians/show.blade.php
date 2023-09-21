@@ -36,10 +36,10 @@
                 </form>
             @else
                 <a href="{{ route('admin.musicians.edit', ['musician' => $currentMusician->id]) }}" class="btn btn-primary btn-sm">Edit</a>
-                <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST">
+                <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST" class="form-canc">
                     @csrf
                     @method('delete')
-                    <button type="submit" class="btn btn-danger btn-sm">Cancella</button>
+                    <button type="submit" class="btn btn-danger btn-sm" >Cancella</button>
                 </form>
             @endif
 
@@ -47,4 +47,30 @@
     </div>
 </div>
 
+<!-- <aside id="popUp">
+    <h2>Sei sicuro di volerti cancellare dalla piattaforma?</h2>
+    <p>Perderai sia il tuo prfilo che la registarzione</p>
+    <i class="fa-solid fa-trash"></i>
+    <div>
+        <button type="button">Si</button>
+        <button type="button">Si</button>
+    </div>
+</aside> -->
+@endsection
+
+@section('js')
+<script>
+     const formCanc = document.querySelector('form.form-canc');
+     console.log(formCanc)
+
+    formCanc.addEventListener('submit',function(event){
+        event.preventDefault();
+        const userConfirm = window.confirm('Sei sicuro di volerti cancellare dalla piattaforma? Profilo e registrazione andranno persi ');
+        if(userConfirm){
+            formCanc.submit()
+        }
+     })
+
+
+</script>
 @endsection
