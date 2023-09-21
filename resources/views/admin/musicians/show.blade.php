@@ -38,7 +38,7 @@
     </div>
 </div>
 
-<!--<aside id="popUp">
+<!-- <aside id="popUp">
     <h2>Sei sicuro di volerti cancellare dalla piattaforma?</h2>
     <p>Perderai sia il tuo prfilo che la registarzione</p>
     <i class="fa-solid fa-trash"></i>
@@ -46,7 +46,7 @@
         <button type="button">Si</button>
         <button type="button">Si</button>
     </div>
-</aside>   -->
+</aside> -->
 @endsection
 
 @section('js')
@@ -56,7 +56,7 @@
 
     formCanc.addEventListener('submit',function(event){
         event.preventDefault();
-        const userConfirm = window.confirm('Sei sicuro di voler cancellare il tuo profilo? Tutte le informazioni da te inserite andranno perse');
+        const userConfirm = window.confirm('Sei sicuro di volerti cancellare dalla piattaforma? Profilo e registrazione andranno persi ');
         if(userConfirm){
             formCanc.submit()
         }
