@@ -11,7 +11,16 @@
         <p>Data di nascita: {{ $currentMusician->birth_date ?? ''}}</p>
         <p>Indirizzo: {{ $currentMusician->address ?? ''}}</p>
         <p>Numero di telefono: {{ $currentMusician->num_phone ?? ''}}</p>
-        <p>Immagine: {{ $currentMusician->image ?? ''}}</p>
+
+        @if($currentMusician == null)
+            <p>Immagine : Inserire un'immagine</p>
+        @else
+            @if (str_starts_with($currentMusician->image, 'http'))
+                <p>Immagine: <img src="{{$currentMusician->image}}" alt="{{$currentMusician->name}}"></p> 
+            @else
+                <img src="{{asset('storage/' . $currentMusician->image)}}" alt="">
+            @endif
+        @endif
         <p>Bio: {{ $currentMusician->bio ?? ''}}</p>
         <p>CV: {{ $currentMusician->cv ?? ''}}</p>
         <p>Prezzo: {{ $currentMusician->price ?? ''}}€</p>

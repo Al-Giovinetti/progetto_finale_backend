@@ -7,6 +7,7 @@ use App\Models\Musician;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BoosicianController extends Controller
 {
@@ -28,6 +29,8 @@ class BoosicianController extends Controller
      */
     public function create()
     {
+
+        
         return view('admin.musicians.create');
     }
 
@@ -37,40 +40,7 @@ class BoosicianController extends Controller
     public function store(Request $request)
     {
 
-
-
-        $data = $request->validate([
-            'surname' => 'required',
-            'birth_date' => 'required|date',
-            'address' => 'required',
-            'num_phone' => 'required',
-            'image' => 'required', 
-            'bio' => 'required',
-            'cv' => 'required',
-            'price' => 'required|numeric|max:9999',
-            'musical_genre' => 'required',
-        ]);
-
-
-        $user = Auth::user();
-
-        $newMusician = Musician::create([
-            'user_id' => $user->id,
-            'surname' => $data['surname'],
-            'birth_date' => $data['birth_date'],
-            'address' => $data['address'],
-            'num_phone' => $data['num_phone'],
-            'image' => $data['image'],
-            'bio' => $data['bio'],
-            'cv' => $data['cv'],
-            'price' => $data['price'],
-            'musical_genre' => $data['musical_genre'],
-        ]);
-
-        $newMusician->save();
-
-        return redirect()->route('admin.musicians.show', $user);
-
+        
 
     }
 
@@ -123,6 +93,13 @@ class BoosicianController extends Controller
             'price' => 'required|numeric|max:9999',
             'musical_genre' => 'required',
         ]);
+
+
+        if ($request->hasFile('image')){
+            $img_path = Storage::put('uploads/posts', $request['image']);
+            $data['image'] = $img_path;
+        }
+
         
         $currentMusician->update([
             'user_id' => $user->id,
@@ -148,7 +125,9 @@ class BoosicianController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        $musician = Musician::find($id);
         $user->delete();
+        $musician->delete();
         return redirect()->route('admin.home');
     }
 }
