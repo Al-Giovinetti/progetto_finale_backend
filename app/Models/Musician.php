@@ -23,6 +23,7 @@ class Musician extends Model
         'cv',
         'price',
         'musical_genre',
+        'instrument' //elemento aggiunto
     ];
 
     public function user()
@@ -39,14 +40,6 @@ class Musician extends Model
     {
         return $this->hasMany(Review::class);
     }
-
-    
-    public function sponsors()
-    {
-        return $this->belongsToMany(Sponsor::class);
-    }
-
-
 
     public function musicalInstruments()
     {

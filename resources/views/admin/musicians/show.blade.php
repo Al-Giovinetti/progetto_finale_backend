@@ -18,20 +18,34 @@
         <p>Genere Musicale: {{ $currentMusician->musical_genre ?? ''}}</p>
 
 
-        
+        @if($user->musician->musicalInstruments)
+        <div>
+            <h2>
+                Strumenti Musicali
+            </h2>
+            <ul>
+                @foreach ($user->musician->musicalInstruments as $musicalInstrument)
+                <li>
+                    {{ $musicalInstrument->name }}
+                </li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         <div class="button d-flex gap-3">
             @if (!$currentMusician)
-                <form action="{{ route('admin.musicians.create') }}" method="GET">
-                    @csrf
-                    <button type="submit" class="btn btn-success btn-sm">Crea Musicista</button>
-                </form>
+            <form action="{{ route('admin.musicians.create') }}" method="GET">
+                @csrf
+                <button type="submit" class="btn btn-success btn-sm">Crea Musicista</button>
+            </form>
             @else
-                <a href="{{ route('admin.musicians.edit', ['musician' => $currentMusician->id]) }}" class="btn btn-primary btn-sm">Edit</a>
-                <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="btn btn-danger btn-sm">Cancella</button>
-                </form>
+            <a href="{{ route('admin.musicians.edit', ['musician' => $currentMusician->id]) }}" class="btn btn-primary btn-sm">Edit</a>
+            <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST">
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-danger btn-sm">Cancella</button>
+            </form>
             @endif
 
         </div>
