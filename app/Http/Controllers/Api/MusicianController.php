@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\MusicalInstrument;
+use App\Models\Review;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Musician;
 
@@ -13,11 +16,44 @@ class MusicianController extends Controller
      */
     public function index()
     {
-        $musicians = Musician::paginate(10);
-        return response()->json($musicians);
+        $musicians = Musician::with('user', 'reviews') ->paginate(10);
+
+        return response()->json(
+            [
+                'success'=>true,
+                'results'=>$musicians
+            ]
+        );
+    }
+
+    public function user(){
+        $users = User::all();
+
+        return response()->json($users);
         [
             'success'=>true,
-            'results'=>$musicians
+            'results'=>$users
+        ];
+
+    }
+
+    public function instrument(){
+        $instruments = MusicalInstrument::all();
+
+        return response()->json($instruments);
+        [
+            'success'=>true,
+            'results'=>$instruments
+        ];
+    }
+
+    public function review(){
+        $reviews = Review::all();
+
+        return response()->json($reviews);
+        [
+            'success'=>true,
+            'results'=>$reviews
         ];
     }
 
@@ -73,4 +109,12 @@ class MusicianController extends Controller
     {
         //
     }
+
+
+
+
+
+
+
+
 }

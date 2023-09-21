@@ -17,12 +17,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link">
+                            <a class="nav-link {{Route::current()->getName() == 'admin.messages.index' ? 'active' : ''}}" aria-current="page" href="{{route('admin.messages.index')}}">
                                 Messaggi
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link">
+                            <a class="nav-link {{Route::current()->getName() == 'admin.reviews.index' ? 'active' : ''}}" aria-current="page" href="{{route('admin.reviews.index')}}">
+
                                 Sponsor
                             </a>
                         </li>

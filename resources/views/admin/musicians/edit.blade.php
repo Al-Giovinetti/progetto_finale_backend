@@ -3,7 +3,7 @@
 @section('content')
 
 
-<form action="{{route('admin.musicians.update', $loggedMusician)}}" method="POST">
+<form action="{{route('admin.musicians.update', $loggedMusician)}}" method="POST" enctype="multipart/form-data">
     @csrf
     @method ('PUT')
 
@@ -46,7 +46,7 @@
     @enderror
     <div class="mb-3">
         <label for="image" class="form-label">image</label>
-        <input type="text" class="form-control" id="image" aria-describedby="image" name="image" value="{{ old('image', $currentMusician->image)}}">
+        <input type="file" class="form-control" id="image" aria-describedby="image" name="image"  placeholder="Upload your image" value="{{ old('image', '')}}">
 
     </div>
 

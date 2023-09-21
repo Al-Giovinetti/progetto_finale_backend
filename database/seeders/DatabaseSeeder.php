@@ -28,6 +28,7 @@ class DatabaseSeeder extends Seeder
             MusicianSponsorSeeder::class,
 
             MusicalInstrumentMusicianSeeder::class,
+            ReviewSeeder::class,
 
         ]);
     }

@@ -8,6 +8,7 @@ use App\Models\MusicalInstrument;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class BoosicianController extends Controller
 {
@@ -153,7 +154,9 @@ class BoosicianController extends Controller
     public function destroy($id)
     {
         $user = User::find($id);
+        $musician = Musician::find($id);
         $user->delete();
+        $musician->delete();
         return redirect()->route('admin.home');
     }
 }

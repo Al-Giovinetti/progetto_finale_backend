@@ -16,7 +16,7 @@ return new class extends Migration
         });
 
         Schema::table('reviews', function (Blueprint $table) {
-            $table->foreign('musician_id')->references('user_id')->on('musicians')->onUpdate('cascade')->onDelete('cascade');
+            $table->foreign('musician_id')->references('id')->on('musicians')->onUpdate('cascade')->onDelete('cascade');
         });
     }
 
