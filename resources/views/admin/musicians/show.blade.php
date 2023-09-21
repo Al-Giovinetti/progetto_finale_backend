@@ -13,13 +13,13 @@
         <p>Numero di telefono: {{ $currentMusician->num_phone ?? ''}}</p>
 
         @if($currentMusician == null)
-            <p>Immagine : Inserire un'immagine</p>
+        <p>Immagine : Inserire un'immagine</p>
         @else
-            @if (str_starts_with($currentMusician->image, 'http'))
-                <p>Immagine: <img src="{{$currentMusician->image}}" alt="{{$currentMusician->name}}"></p> 
-            @else
-                <img src="{{asset('storage/' . $currentMusician->image)}}" alt="">
-            @endif
+        @if (str_starts_with($currentMusician->image, 'http'))
+        <p>Immagine: <img src="{{$currentMusician->image}}" alt="{{$currentMusician->name}}"></p>
+        @else
+        <img src="{{asset('storage/' . $currentMusician->image)}}" alt="">
+        @endif
         @endif
         <p>Bio: {{ $currentMusician->bio ?? ''}}</p>
         <p>CV: {{ $currentMusician->cv ?? ''}}</p>
@@ -50,17 +50,17 @@
         
         <div class="button d-flex gap-3">
             @if (!$currentMusician)
-                <form action="{{ route('admin.musicians.create') }}" method="GET">
-                    @csrf
-                    <button type="submit" class="btn btn-success btn-sm">Crea Musicista</button>
-                </form>
+            <form action="{{ route('admin.musicians.create') }}" method="GET">
+                @csrf
+                <button type="submit" class="btn btn-success btn-sm">Crea Musicista</button>
+            </form>
             @else
-                <a href="{{ route('admin.musicians.edit', ['musician' => $currentMusician->id]) }}" class="btn btn-primary btn-sm">Edit</a>
-                <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST" class="form-canc">
-                    @csrf
-                    @method('delete')
-                    <button type="submit" class="btn btn-danger btn-sm" >Cancella</button>
-                </form>
+            <a href="{{ route('admin.musicians.edit', ['musician' => $currentMusician->id]) }}" class="btn btn-primary btn-sm">Edit</a>
+            <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST">
+                @csrf
+                @method('delete')
+                <button type="submit" class="btn btn-danger btn-sm">Cancella</button>
+            </form>
             @endif
 
         </div>
@@ -80,17 +80,15 @@
 
 @section('js')
 <script>
-     const formCanc = document.querySelector('form.form-canc');
-     console.log(formCanc)
+    const formCanc = document.querySelector('form.form-canc');
+    console.log(formCanc)
 
-    formCanc.addEventListener('submit',function(event){
+    formCanc.addEventListener('submit', function(event) {
         event.preventDefault();
         const userConfirm = window.confirm('Sei sicuro di volerti cancellare dalla piattaforma? Profilo e registrazione andranno persi ');
-        if(userConfirm){
+        if (userConfirm) {
             formCanc.submit()
         }
-     })
-
-
+    })
 </script>
 @endsection

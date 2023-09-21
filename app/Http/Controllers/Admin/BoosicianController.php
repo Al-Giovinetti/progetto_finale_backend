@@ -17,12 +17,12 @@ class BoosicianController extends Controller
      */
     public function index()
     {
-        $musician=Musician::all();
-        $user= Auth::user();
-        $currentMusician=$user->musician;
+        $musician = Musician::all();
+        $user = Auth::user();
+        $currentMusician = $user->musician;
 
-        
-        return view('admin.musicians.show',compact('currentMusician','musician','user'));
+
+        return view('admin.musicians.show', compact('currentMusician', 'musician', 'user'));
     }
 
     /**
@@ -30,9 +30,8 @@ class BoosicianController extends Controller
      */
     public function create()
     {
-
-        
-        return view('admin.musicians.create');
+        $musical_instruments = MusicalInstrument::all();
+        return view('admin.musicians.create', compact('musical_instruments'));
     }
 
     /**
@@ -41,8 +40,38 @@ class BoosicianController extends Controller
     public function store(Request $request)
     {
 
-        
 
+
+        $data = $request->validate([
+            'surname' => 'required',
+            'birth_date' => 'required|date',
+            'address' => 'required',
+            'num_phone' => 'required',
+            'image' => 'required',
+            'bio' => 'required',
+            'cv' => 'required',
+            'price' => 'required|numeric|max:9999',
+            'musical_genre' => 'required',
+        ]);
+
+
+        $user = Auth::user();
+
+        $newMusician = Musician::create([
+            'user_id' => $user->id,
+            'surname' => $data['surname'],
+            'birth_date' => $data['birth_date'],
+            'address' => $data['address'],
+            'num_phone' => $data['num_phone'],
+            'image' => $data['image'],
+            'bio' => $data['bio'],
+            'cv' => $data['cv'],
+            'price' => $data['price'],
+            'musical_genre' => $data['musical_genre'],
+        ]);
+        $newMusician->save();
+
+        return redirect()->route('admin.musicians.show', $user);
     }
 
     /**
@@ -53,9 +82,7 @@ class BoosicianController extends Controller
 
         $user= Auth::user();
         $currentMusician=$user->musician;
-        return view('admin.musicians.show',compact('currentMusician','user', 'musician'));
-
-
+        return view('admin.musicians.show',compact('currentMusician','musician', 'user'));
     }
 
     /**
@@ -72,7 +99,6 @@ class BoosicianController extends Controller
         $currentMusician = Musician::findOrFail($loggedMusician->id);
 
         $musical_instruments = MusicalInstrument::all();
-        
 
         return view('admin.musicians.edit', compact('currentMusician', 'loggedMusician','musical_instruments'));
         // return dd($currentMusician);
@@ -91,7 +117,7 @@ class BoosicianController extends Controller
             'birth_date' => 'required|date',
             'address' => 'required',
             'num_phone' => 'required',
-            'image' => 'required', 
+            'image' => 'required',
             'bio' => 'required',
             'cv' => 'required',
             'price' => 'required|numeric|max:9999',

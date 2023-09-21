@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
             MusicianSeeder::class,
             MessageSeeder::class,
             MusicianSponsorSeeder::class,
+
             MusicalInstrumentMusicianSeeder::class,
             ReviewSeeder::class,
 
