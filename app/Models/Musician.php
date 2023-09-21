@@ -23,6 +23,7 @@ class Musician extends Model
         'cv',
         'price',
         'musical_genre',
+        'instrument'
     ];
 
     public function user()

@@ -83,6 +83,21 @@
     </div>
 
 
+
+    @error('musical_instruments')
+    <div class="alert alert-danger">{{$message}}</div>
+    @enderror
+    <div>
+        <h2>Strumenti Musicale</h2>
+        @foreach ($musical_instruments as $musical_instrument)
+        <input type="checkbox" name="musical_instruments[]" class="form-check-input" id="musical_instruments" value="{{ $musical_instrument->id }}" @if( in_array($musical_instrument->id, old('musical_instruments', []))) checked @endif>
+        <label for="tags" class="form-check-label me-3">
+            {{ $musical_instrument->name }}
+        </label>
+        @endforeach
+    </div>
+
+
     
     <button type="submit" class="btn btn-primary">Update</button>
 </form>

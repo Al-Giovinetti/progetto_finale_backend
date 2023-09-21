@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Musician;
+use App\Models\MusicalInstrument;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -49,10 +50,12 @@ class BoosicianController extends Controller
      */
     public function show(Musician $musician)
     {   
-        $musician=Musician::all();
+
         $user= Auth::user();
         $currentMusician=$user->musician;
-        return view('admin.musicians.show',compact('currentMusician','musician', 'user'));
+        return view('admin.musicians.show',compact('currentMusician','user', 'musician'));
+
+
     }
 
     /**
@@ -68,9 +71,10 @@ class BoosicianController extends Controller
 
         $currentMusician = Musician::findOrFail($loggedMusician->id);
 
+        $musical_instruments = MusicalInstrument::all();
         
 
-        return view('admin.musicians.edit', compact('currentMusician', 'loggedMusician'));
+        return view('admin.musicians.edit', compact('currentMusician', 'loggedMusician','musical_instruments'));
         // return dd($currentMusician);
 
     }
@@ -92,6 +96,7 @@ class BoosicianController extends Controller
             'cv' => 'required',
             'price' => 'required|numeric|max:9999',
             'musical_genre' => 'required',
+            'musical_instruments' => ['exists:musical_instruments,id', 'required']
         ]);
 
 
@@ -112,9 +117,15 @@ class BoosicianController extends Controller
             'cv' => $data['cv'],
             'price' => $data['price'],
             'musical_genre' => $data['musical_genre'],
+            'musical_instruments' => $data['musical_instruments']
         ]);
 
         $currentMusician->save();
+
+        if ($request->has('musical_instruments')) {
+            $user->musician->musicalInstruments()->sync($request->musical_instruments);
+        }
+
         return view('admin.musicians.show',compact('currentMusician', 'user'));
 
     }
