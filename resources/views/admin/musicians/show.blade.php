@@ -11,43 +11,45 @@
         <p>Data di nascita: {{ $currentMusician->birth_date ?? ''}}</p>
         <p>Indirizzo: {{ $currentMusician->address ?? ''}}</p>
         <p>Numero di telefono: {{ $currentMusician->num_phone ?? ''}}</p>
-
+        
+        <p>Immagine dl profilo</p>
         @if($currentMusician == null)
-        <p>Immagine : Inserire un'immagine</p>
+            <p>Immagine : Inserire un'immagine</p>
         @else
-        @if (str_starts_with($currentMusician->image, 'http'))
-        <p>Immagine: <img src="{{$currentMusician->image}}" alt="{{$currentMusician->name}}"></p>
-        @else
-        <img src="{{asset('storage/' . $currentMusician->image)}}" alt="">
+            @if (str_starts_with($currentMusician->image, 'http'))
+                <img src="{{$currentMusician->image}}" alt="{{$currentMusician->name}}"></p>
+            @else
+                <img src="{{asset('storage/' . $currentMusician->image)}}" alt="{{$currentMusician->name}}">
+            @endif
         @endif
-        @endif
+
         <p>Bio: {{ $currentMusician->bio ?? ''}}</p>
-        <p>CV: {{ $currentMusician->cv ?? ''}}</p>
+
+        <p>Il cv da te allegato</p>
+        @if (str_starts_with($currentMusician->cv, 'C:'))
+            <img src="{{asset('storage/' . $currentMusician->cv)}}" alt="{{$currentMusician->name}}">
+        @else
+            <p>Cv non caricato</p>
+        @endif
+
         <p>Prezzo: {{ $currentMusician->price ?? ''}}€</p>
         <p>Genere Musicale: {{ $currentMusician->musical_genre ?? ''}}</p>
 
+        @if($user->musician->musicalInstruments)
+            <div>
+                <h2>
+                    Strumenti Musicali
+                </h2>
+                <ul>
+                    @foreach ($user->musician->musicalInstruments as $musicalInstrument)
+                        <li>
+                            {{ $musicalInstrument->name }}
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-
-
-            @if($user->musician->musicalInstruments)
-                    <div>
-                        <h2>
-                            Strumenti Musicali
-                        </h2>
-                        <ul>
-                            @foreach ($user->musician->musicalInstruments as $musicalInstrument)
-                            <li>
-                                {{ $musicalInstrument->name }}
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
-
-
-
-
-        
         <div class="button d-flex gap-3">
             @if (!$currentMusician)
             <form action="{{ route('admin.musicians.create') }}" method="GET">

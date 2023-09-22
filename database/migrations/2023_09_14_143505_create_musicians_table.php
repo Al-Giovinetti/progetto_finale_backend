@@ -20,7 +20,7 @@ return new class extends Migration
             $table->text('image');
             $table->text('bio');
             $table->string('surname');
-            $table->text('cv');
+            $table->text('cv')->nullable();
             $table->float('price',6,2);
             $table->string('musical_genre');
             $table->timestamps();

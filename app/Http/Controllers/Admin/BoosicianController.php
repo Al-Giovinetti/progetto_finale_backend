@@ -119,7 +119,6 @@ class BoosicianController extends Controller
             'num_phone' => 'required',
             'image' => 'required',
             'bio' => 'required',
-            'cv' => 'required',
             'price' => 'required|numeric|max:9999',
             'musical_genre' => 'required',
             'musical_instruments' => ['exists:musical_instruments,id', 'required']
@@ -127,8 +126,15 @@ class BoosicianController extends Controller
 
 
         if ($request->hasFile('image')){
-            $img_path = Storage::put('uploads/posts', $request['image']);
+            $img_path = Storage::put('uploads/img-profile', $request['image']);
             $data['image'] = $img_path;
+        }
+
+        if ($request->hasFile('cv')){
+            $cv_path = Storage::put('uploads/cv',$request['cv']);
+            $data['cv']=$cv_path;
+        }else{
+            $cv_path = 'Non cv inserito';
         }
 
         
@@ -140,7 +146,7 @@ class BoosicianController extends Controller
             'num_phone' => $data['num_phone'],
             'image' => $data['image'],
             'bio' => $data['bio'],
-            'cv' => $data['cv'],
+            'cv' => $cv_path,
             'price' => $data['price'],
             'musical_genre' => $data['musical_genre'],
             'musical_instruments' => $data['musical_instruments']

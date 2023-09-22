@@ -63,7 +63,8 @@
     @enderror
     <div class="mb-3">
         <label for="cv" class="cv">cv</label>
-        <input type="text" class="form-control" id="cv" value="{{ old('cv', $currentMusician->cv)}}" name="cv">
+        <input type="file" class="form-control" id="cv" aria-describedby="cv" name="cv"  placeholder="Upload your cv" value="{{ old('cv', '')}}">
+        <!--<input type="text" class="form-control" id="cv" value="{{ old('cv', $currentMusician->cv)}}" name="cv"> -->
     </div>
 
     @error('price')
