@@ -9,9 +9,16 @@ class Sponsor extends Model
 {
     use HasFactory;
 
+    protected $primaryKey = 'id';
+
+    protected $fillable = [
+        'sponsor_type',
+        'price',
+        'duration',
+    ];
 
     public function musicians()
     {
-        return $this->belongsToMany(Musician::class)->withPivot('data_inizio', 'data_fine');
+        return $this->belongsToMany(Musician::class, 'musician_sponsor')->withPivot('sponsor_start', 'sponsor_end');
     }
 }

@@ -21,11 +21,24 @@ return new class extends Migration
 
             $table->primary(['musician_id', 'sponsor_id']);
 
-            
-            $table->dateTime('sponsor_start')->default(null);
-            $table->dateTime('sponsor_end')->default(null);
 
+            $table->dateTime('sponsor_start')->default(now());
+            $table->dateTime('sponsor_end')->default(now());
 
+            /*
+            $table->dateTime('sponsor_end')->default(function () {
+                $sponsorId = $this->sponsor_id;
+                if ($sponsorId === 1) {
+                    return now()->addDay(); // Se sponsor_id è 1, aggiungi 1 giorno
+                } elseif ($sponsorId === 2) {
+                    return now()->addDays(3); // Se sponsor_id è 2, aggiungi 3 giorni
+                } elseif ($sponsorId === 3) {
+                    return now()->addDays(6); // Se sponsor_id è 3, aggiungi 6 giorni
+                } else {
+                    return now(); // Valore di default generico
+                }
+            });
+            */
         });
     }
 

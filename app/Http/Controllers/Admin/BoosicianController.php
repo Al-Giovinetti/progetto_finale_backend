@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Musician;
 use App\Models\MusicalInstrument;
+use App\Models\Sponsor;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -78,11 +79,11 @@ class BoosicianController extends Controller
      * Display the specified resource.
      */
     public function show(Musician $musician)
-    {   
+    {
 
-        $user= Auth::user();
-        $currentMusician=$user->musician;
-        return view('admin.musicians.show',compact('currentMusician','musician', 'user'));
+        $user = Auth::user();
+        $currentMusician = $user->musician;
+        return view('admin.musicians.show', compact('currentMusician', 'musician', 'user'));
     }
 
     /**
@@ -100,7 +101,9 @@ class BoosicianController extends Controller
 
         $musical_instruments = MusicalInstrument::all();
 
-        return view('admin.musicians.edit', compact('currentMusician', 'loggedMusician','musical_instruments'));
+        $sponsors = Sponsor::all();
+
+        return view('admin.musicians.edit', compact('currentMusician', 'loggedMusician', 'musical_instruments', 'sponsors'));
         // return dd($currentMusician);
 
     }
@@ -126,12 +129,12 @@ class BoosicianController extends Controller
         ]);
 
 
-        if ($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $img_path = Storage::put('uploads/posts', $request['image']);
             $data['image'] = $img_path;
         }
 
-        
+
         $currentMusician->update([
             'user_id' => $user->id,
             'surname' => $data['surname'],
@@ -152,8 +155,7 @@ class BoosicianController extends Controller
             $user->musician->musicalInstruments()->sync($request->musical_instruments);
         }
 
-        return view('admin.musicians.show',compact('currentMusician', 'user'));
-
+        return view('admin.musicians.show', compact('currentMusician', 'user'));
     }
 
     /**

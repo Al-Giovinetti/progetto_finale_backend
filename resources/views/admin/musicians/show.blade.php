@@ -3,9 +3,12 @@
 @section('content')
 
 <div class="container">
-    <h1>Il tuo Profilo Musicista</h1>
+    <h1 class="text-center">Il tuo Profilo Musicista</h1>
 
     <div class="card">
+        <h2>
+            Dati Personali
+        </h2>
         <p>Nome: {{ $user->name ?? '' }}</p>
         <p>Cognome: {{ $currentMusician->surname ?? ''}}</p>
         <p>Data di nascita: {{ $currentMusician->birth_date ?? ''}}</p>
@@ -29,25 +32,40 @@
 
 
 
-            @if($user->musician->musicalInstruments)
-                    <div>
-                        <h2>
-                            Strumenti Musicali
-                        </h2>
-                        <ul>
-                            @foreach ($user->musician->musicalInstruments as $musicalInstrument)
-                            <li>
-                                {{ $musicalInstrument->name }}
-                            </li>
-                            @endforeach
-                        </ul>
-                    </div>
-                    @endif
+        @if($user->musician->musicalInstruments)
+        <div>
+            <h2>
+                Strumenti Musicali
+            </h2>
+            <ul>
+                @foreach ($user->musician->musicalInstruments as $musicalInstrument)
+                <li>
+                    {{ $musicalInstrument->name }}
+                </li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
+        @if($user->musician->sponsors)
+        <div>
+            <h2>
+                Sponsor
+            </h2>
+            <ul>
+                @foreach($user->musician->sponsors as $sponsor)
+                <li>Tipologia di sponsor: {{ $sponsor->sponsor_type}} </li>
+                <li>Data inizio: {{ $sponsor->pivot->sponsor_start}} </li>
+                <li>Data fine: {{ $sponsor->pivot->sponsor_end}} </li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
 
 
 
 
-        
+
         <div class="button d-flex gap-3">
             @if (!$currentMusician)
             <form action="{{ route('admin.musicians.create') }}" method="GET">
