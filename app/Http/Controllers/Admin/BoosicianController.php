@@ -9,6 +9,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use SebastianBergmann\CodeCoverage\Report\Xml\Project;
 
 class BoosicianController extends Controller
 {
@@ -108,7 +109,7 @@ class BoosicianController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, int $id)
+    public function update(Request $request, Musician $musician)
     {
         $user = Auth::user();
         $currentMusician = $user->musician;  //recupero il profilo del musicista assocciato all'utente attualmente connesso
@@ -127,12 +128,16 @@ class BoosicianController extends Controller
 
         if ($request->hasFile('image')){
             $img_path = Storage::put('uploads/img-profile', $request['image']);
+            Storage::delete($musician->image);
             $data['image'] = $img_path;
+
+
         }
 
         if ($request->hasFile('cv')){
             $cv_path = Storage::put('uploads/cv',$request['cv']);
             $data['cv']=$cv_path;
+            Storage::delete($musician->cv);
         }else{
             $cv_path = 'Non cv inserito';
         }
@@ -169,6 +174,8 @@ class BoosicianController extends Controller
     {
         $user = User::find($id);
         $musician = Musician::find($id);
+        Storage::delete($musician->image);
+        Storage::delete($musician->cv);
         $user->delete();
         $musician->delete();
         return redirect()->route('admin.home');
