@@ -41,7 +41,7 @@ class ReviewSeeder extends Seeder
         ];
 
         foreach($musicians as $musician){
-            $randomNumber = rand(0, 10);
+            $randomNumber = rand(0, 5);
             
             for($i = 0; $i <= $randomNumber; $i++){
             $newReview = new Review();
