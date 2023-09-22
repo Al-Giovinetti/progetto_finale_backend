@@ -38,15 +38,19 @@
     @enderror
     <div class="mb-3">
         <label for="num_phone" class="form-label">num_phone</label>
-        <input type="text" class="form-control" id="num_phone" aria-describedby="num_phone" name="num_phone" value="{{ old('num_phone', $currentMusician->num_phone)}}">
+        <input type="text" class="form-control " id="num_phone" aria-describedby="num_phone" name="num_phone" value="{{ old('num_phone', $currentMusician->num_phone)}}">
     </div>
 
     @error('image')
     <div class="alert alert-danger">{{$message}}</div>
     @enderror
     <div class="mb-3">
-        <label for="image" class="form-label">image</label>
-        <input type="file" class="form-control" id="image" aria-describedby="image" name="image"  placeholder="Upload your image" value="{{ old('image', '')}}">
+        <p>Seleziona come importare l' immagine </p>
+        <input type="radio" name="image-profile" id="ProfileImgFile">File
+        <input type="radio" name="image-profile" id="ProfileImgLink">Image-link
+
+        <input type="file" class="form-control d-none" id="imageFile" aria-describedby="image" name="image"  placeholder="Upload your image" value="{{ old('image', '')}}">
+        <input type="text" class="form-control d-none" id="imageLink" aria-describedby="image" name="image"  placeholder="Upload your image" value="{{ old('image', '')}}"> 
 
     </div>
 
@@ -116,5 +120,26 @@
 </form>
 
 
+
+@endsection
+
+@section('js')
+<script>
+    const RadioFile = document.getElementById('ProfileImgFile');
+    const RadioLink = document.getElementById('ProfileImgLink');
+
+    const inputFile = document.getElementById('imageFile');
+    const inputLink = document.getElementById('imageLink');
+
+    RadioFile.addEventListener('click',function(){
+        inputFile.classList.remove('d-none');
+        inputLink.className='form-control d-none'
+    })
+
+    RadioLink.addEventListener('click',function(){
+        inputLink.classList.remove('d-none');
+        inputFile.className='form-control d-none'
+    })
+</script>
 
 @endsection
