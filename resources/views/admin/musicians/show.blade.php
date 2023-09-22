@@ -12,7 +12,7 @@
         <p>Indirizzo: {{ $currentMusician->address ?? ''}}</p>
         <p>Numero di telefono: {{ $currentMusician->num_phone ?? ''}}</p>
         
-        <p>Immagine dl profilo</p>
+        <p>Immagine del profilo</p>
         @if($currentMusician == null)
             <p>Immagine : Inserire un'immagine</p>
         @else
@@ -26,7 +26,7 @@
         <p>Bio: {{ $currentMusician->bio ?? ''}}</p>
 
         <p>Il cv da te allegato</p>
-        @if (str_starts_with($currentMusician->cv, 'C:'))
+        @if (str_starts_with($currentMusician->cv, 'uploads'))
             <img src="{{asset('storage/' . $currentMusician->cv)}}" alt="{{$currentMusician->name}}">
         @else
             <p>Cv non caricato</p>
@@ -58,7 +58,7 @@
             </form>
             @else
             <a href="{{ route('admin.musicians.edit', ['musician' => $currentMusician->id]) }}" class="btn btn-primary btn-sm">Edit</a>
-            <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST">
+            <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST" class="form-canc">
                 @csrf
                 @method('delete')
                 <button type="submit" class="btn btn-danger btn-sm">Cancella</button>
@@ -82,8 +82,8 @@
 
 @section('js')
 <script>
+    //Quando vuoi cancellare il profilo ti chiede prima la conferma
     const formCanc = document.querySelector('form.form-canc');
-    console.log(formCanc)
 
     formCanc.addEventListener('submit', function(event) {
         event.preventDefault();
@@ -92,5 +92,7 @@
             formCanc.submit()
         }
     })
+
+    //A seconda di che radio preme l' utente compare di inserire il file o l'url
 </script>
 @endsection
