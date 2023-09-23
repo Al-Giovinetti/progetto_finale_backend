@@ -16,7 +16,7 @@ class MusicianController extends Controller
      */
     public function index()
     {
-        $musicians = Musician::with('user', 'reviews', 'musicalInstrument') ->paginate(10);
+        $musicians = Musician::with('user', 'reviews', 'musicalInstruments') ->paginate(10);
 
         return response()->json(
             [
@@ -79,11 +79,12 @@ class MusicianController extends Controller
     public function show(string $id)
     {
         $musician=Musician::with('user', 'reviews', 'musicalInstruments' )->findorFail($id);
-        return response()->json($musician);
+        return response()->json(
         [
             'success'=>true,
             'results'=>$musician
-        ];
+        ]
+    );
     }
 
     /**

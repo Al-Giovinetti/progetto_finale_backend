@@ -43,7 +43,7 @@ class MessageSeeder extends Seeder
             $newMessage->musician_id = $musician->id;
             $newMessage->name=$faker->name();
             $newMessage->mail=$faker->email();
-            $newMessage->message= $messageText($rand_index);
+            $newMessage->message= $messageText[$rand_index];
             $newMessage->save();
             }
         }
