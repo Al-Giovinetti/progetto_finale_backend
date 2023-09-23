@@ -36,9 +36,9 @@ class MessageSeeder extends Seeder
     
     foreach($musicians as $musician){
         $randomNumber = rand(0, 5);
-        $rand_index = array_rand($messageText);
         
         for($i = 0; $i < $randomNumber; $i++){
+            $rand_index = array_rand($messageText);
             $newMessage = new Message();
             $newMessage->musician_id = $musician->id;
             $newMessage->name=$faker->name();
