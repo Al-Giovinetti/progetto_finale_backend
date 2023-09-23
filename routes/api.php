@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\MusicianController as ApiMusicianController;
@@ -21,6 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('/musicians',[ApiMusicianController::class,'index'])->name('api.musicians.index');
 Route::get('/musicians/{id}',[ApiMusicianController::class,'show'])->name('api.musicias.show');
+
+
+Route::post('/review-form', [ ApiReviewController::class, 'store'])->name('api.review-form');
 
 //Route::get('/user',[ApiMusicianController::class,'user'])->name('api.musicians.user');
 //Route::get('/instrument',[ApiMusicianController::class,'instrument'])->name('api.musicians.instrument');
