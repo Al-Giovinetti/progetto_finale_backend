@@ -24,7 +24,7 @@
                         <li class="nav-item">
                             <a class="nav-link {{Route::current()->getName() == 'admin.reviews.index' ? 'active' : ''}}" aria-current="page" href="{{route('admin.reviews.index')}}">
 
-                                Sponsor
+                                Reviews
                             </a>
                         </li>
                     @endauth
