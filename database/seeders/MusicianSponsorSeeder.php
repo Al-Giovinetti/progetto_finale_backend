@@ -22,7 +22,7 @@ class MusicianSponsorSeeder extends Seeder
 
         foreach ($musicians as $musician) {
             $newMusicianSponsor = new MusicianSponsor();
-            $newMusicianSponsor->musician_id = $musician->user_id;
+            $newMusicianSponsor->musician_id = $musician->id;
             $newMusicianSponsor->sponsor_id = $faker->randomElement($sponsors);
             $newMusicianSponsor->sponsor_start = $faker->dateTimeBetween('-30 week');
 

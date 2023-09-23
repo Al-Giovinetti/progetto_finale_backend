@@ -16,13 +16,37 @@ class ReviewSeeder extends Seeder
     public function run(Faker $faker): void
     {
         $musicians = Musician::all();
+
+        $textContent=[
+            "Buono, provare per credere",
+            "Suona in maniera ottima, sul palco però è un po' piombato",
+            "Pessimo, non si è presentato",
+            "Ci ha provato tutta la sera con mia figlia ... però è capace",
+            "Ottimo",
+            "Sono stato a una sua live ... davvero interessante",
+            "Il suo profilo instagram è molto interessante",
+            "Gli piace la nutella",
+            "Non ho mai visto qualcosa del genere",
+            "Pessimo",
+            "Ha ancora da imparare ma c'è tanto talento",
+            "Era ubriaco, sembrava Grignani ",
+            "Appena fa la prossima festa ci torno",
+            "Mi ha scroccato una cena in cambio di una storia, vendendomela come pubblicità",
+            "Ha rotto il suo strumento a fine esibizione",
+            "Era meglio come fantino",
+            "Bravo, bravissimo",
+            "E' fantastico superfantastico",
+            "E' stato un piacere ospitarlo nel mio locale",
+            "Mentre suona balla, palleggia e strira le camicie"
+        ];
+
         foreach($musicians as $musician){
-            $randomNumber = rand(1, 20);
+            $randomNumber = rand(0, 5);
             
             for($i = 0; $i <= $randomNumber; $i++){
             $newReview = new Review();
-            $newReview -> musician_id = $musician->user_id;
-            $newReview -> content = $faker->text();
+            $newReview -> musician_id = $musician->id;
+            $newReview -> content = array_rand($textContent);
             $newReview -> vote = $faker->numberBetween(0, 5);
             $newReview -> save();
             }
