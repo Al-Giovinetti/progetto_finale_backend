@@ -32,17 +32,18 @@ class MessageSeeder extends Seeder
         'AAA cercasi musicista per soundcheck.'
     ];
 
-    $mailName=['offerta','pubblicità','probabilità','imprevisto'];
     
-        foreach($musicians as $musician){
-            $randomNumber = rand(0, 5);
-
-            for($i = 0; $i < $randomNumber; $i++){
+    
+    foreach($musicians as $musician){
+        $randomNumber = rand(0, 5);
+        $rand_index = array_rand($messageText);
+        
+        for($i = 0; $i < $randomNumber; $i++){
             $newMessage = new Message();
             $newMessage->musician_id = $musician->id;
-            $newMessage->name=$faker->array_rand($mailName);
+            $newMessage->name=$faker->name();
             $newMessage->mail=$faker->email();
-            $newMessage->message= array_rand($messageText);
+            $newMessage->message= $messageText($rand_index);
             $newMessage->save();
             }
         }

@@ -101,21 +101,23 @@
     </div>
 
 
-    @error('musical_instruments')
-    <div class="alert alert-danger">{{$message}}</div>
-    @enderror
     <div>
-        <h2>Strumenti Musicale</h2>
-        @foreach ($musical_instruments as $musical_instrument)
-        <input type="checkbox" name="musical_instruments[]" class="form-check-input" id="musical_instruments" value="{{ $musical_instrument->id }}" @if( in_array($musical_instrument->id, old('musical_instruments', []))) checked @endif>
-        <label for="tags" class="form-check-label me-3">
-            {{ $musical_instrument->name }}
+        <label for="sponsors" class="d-block">
+            <h2>Sponsor</h2>
         </label>
-        @endforeach
+        <select class='form-select' name="sponsors" id="sponsors">
+            <option value="no sponsor">No sponsor</option>
+            @foreach ($sponsors as $sponsor)
+            <option value="{{ $sponsor->id }}" {{ old(`id`, $sponsor->id) == $sponsor->id ? 'selected' : '' }}>
+                {{ $sponsor->sponsor_type }}
+            </option>
+            @endforeach
+        </select>
+
     </div>
 
 
-    
+
     <button type="submit" class="btn btn-primary">Update</button>
 </form>
 

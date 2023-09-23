@@ -3,9 +3,12 @@
 @section('content')
 
 <div class="container">
-    <h1>Il tuo Profilo Musicista</h1>
+    <h1 class="text-center">Il tuo Profilo Musicista</h1>
 
     <div class="card">
+        <h2>
+            Dati Personali
+        </h2>
         <p>Nome: {{ $user->name ?? '' }}</p>
         <p>Cognome: {{ $currentMusician->surname ?? ''}}</p>
         <p>Data di nascita: {{ $currentMusician->birth_date ?? ''}}</p>
