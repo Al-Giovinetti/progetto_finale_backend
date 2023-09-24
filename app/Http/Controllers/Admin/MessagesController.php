@@ -19,6 +19,8 @@ class MessagesController extends Controller
         $musicianMessages = Message::where('musician_id', $user->id)->get();
         $musician = Musician::all();
         $messages = Message::all();
+
+       
     
         return view('admin.messages.index', compact('messages', 'musicianMessages', 'musician'));
     }

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BoosicianController;
 use App\Http\Controllers\Admin\MessagesController;
 use App\Http\Controllers\Admin\ReviewsController;
+use App\Http\Controllers\Admin\StatisticsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,9 +33,17 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 //messages route
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('/messages', MessagesController::class);
+
 });
 
 //reviews route
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('/reviews', ReviewsController::class);
+});
+
+
+//statistics route
+Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
+    Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
+
 });
