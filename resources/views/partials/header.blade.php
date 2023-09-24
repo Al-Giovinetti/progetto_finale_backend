@@ -12,7 +12,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link">
+                            <a class="nav-link {{Route::current()->getName() == 'admin.statistics.index' ? 'active' : ''}}" aria-current="page" href="{{route('admin.statistics.index')}}">
                                 Statistiche
                             </a>
                         </li>
