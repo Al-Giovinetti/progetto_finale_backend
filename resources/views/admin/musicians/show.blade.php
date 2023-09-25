@@ -14,43 +14,59 @@
         <p>Data di nascita: {{ $currentMusician->birth_date ?? ''}}</p>
         <p>Indirizzo: {{ $currentMusician->address ?? ''}}</p>
         <p>Numero di telefono: {{ $currentMusician->num_phone ?? ''}}</p>
-        
+
         <p>Immagine del profilo</p>
         @if($currentMusician == null)
-            <p>Immagine : Inserire un'immagine</p>
+        <p>Immagine : Inserire un'immagine</p>
         @else
-            @if (str_starts_with($currentMusician->image, 'http'))
-                <img src="{{$currentMusician->image}}" alt="{{$currentMusician->name}}"></p>
-            @else
-                <img src="{{asset('storage/' . $currentMusician->image)}}" alt="{{$currentMusician->name}}">
-            @endif
+        @if (str_starts_with($currentMusician->image, 'http'))
+        <img src="{{$currentMusician->image}}" alt="{{$currentMusician->name}}"></p>
+        @else
+        <img src="{{asset('storage/' . $currentMusician->image)}}" alt="{{$currentMusician->name}}">
+        @endif
         @endif
 
         <p>Bio: {{ $currentMusician->bio ?? ''}}</p>
 
         <p>Il cv da te allegato</p>
         @if (str_starts_with($currentMusician->cv, 'uploads'))
-            <img src="{{asset('storage/' . $currentMusician->cv)}}" alt="{{$currentMusician->name}}">
+        <img src="{{asset('storage/' . $currentMusician->cv)}}" alt="{{$currentMusician->name}}">
         @else
-            <p>Cv non caricato</p>
+        <p>Cv non caricato</p>
         @endif
 
         <p>Prezzo: {{ $currentMusician->price ?? ''}}€</p>
         <p>Genere Musicale: {{ $currentMusician->musical_genre ?? ''}}</p>
 
         @if($user->musician->musicalInstruments)
-            <div>
-                <h2>
-                    Strumenti Musicali
-                </h2>
-                <ul>
-                    @foreach ($user->musician->musicalInstruments as $musicalInstrument)
-                        <li>
-                            {{ $musicalInstrument->name }}
-                        </li>
-                    @endforeach
-                </ul>
-            </div>
+        <div>
+            <h2>
+                Strumenti Musicali
+            </h2>
+            <ul>
+                @foreach ($user->musician->musicalInstruments as $musicalInstrument)
+                <li>
+                    {{ $musicalInstrument->name }}
+                </li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
+
+        @if($user->musician->sponsors)
+        <div>
+            <h2>
+                Sponsor
+            </h2>
+            <ul>
+                @foreach($user->musician->sponsors as $sponsor)
+                <li>Tipologia di sponsor: {{ $sponsor->sponsor_type}} </li>
+                <li>Data inizio: {{ $sponsor->pivot->sponsor_start}} </li>
+                <li>Data fine: {{ $sponsor->pivot->sponsor_end}} </li>
+                @endforeach
+            </ul>
+        </div>
         @endif
 
         <div class="button d-flex gap-3">
