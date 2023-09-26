@@ -8,6 +8,8 @@ use App\Models\MusicalInstrument;
 use App\Models\MusicianSponsor;
 use App\Models\Sponsor;
 use App\Models\User;
+use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
@@ -33,8 +35,10 @@ class BoosicianController extends Controller
      */
     public function create()
     {
-        $musical_instruments = MusicalInstrument::all();
+        /*
+        $sponso = MusicalInstrument::all();
         return view('admin.musicians.create', compact('musical_instruments'));
+        */
     }
 
     /**
@@ -127,7 +131,7 @@ class BoosicianController extends Controller
             'bio' => 'required',
             'price' => 'required|numeric|max:9999',
             'musical_genre' => 'required',
-            'musical_instruments' => ['exists:musical_instruments,id', 'required'],
+            'musical_instruments' => ['array', 'exists:musical_instruments,id', 'required'],
         ]);
 
 
@@ -168,32 +172,46 @@ class BoosicianController extends Controller
 
         //$user->musician->sponsors()->sync($request->sponsors);
 
-        $newMusicianSponsor = new MusicianSponsor();
+        // $valore_sponsor = $request->sponsors;
+        // if ($request->sponsors != null) {
 
-        $newMusicianSponsor->musician_id = $user->musician->user_id;
-        $newMusicianSponsor->sponsor_id = $request->sponsors;
-        $newMusicianSponsor->sponsor_start = now();
+        //     $newMusicianSponsor = new MusicianSponsor();
 
-        $dataStart = $newMusicianSponsor->sponsor_start->format('Y-m-d H:i:s');
-        //var_dump($dataStart);
-        if ($newMusicianSponsor->sponsor_id == 1) {
-            $newMusicianSponsor->sponsor_end = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($dataStart)));
-        } elseif ($newMusicianSponsor->sponsor_id == 2) {
-            $newMusicianSponsor->sponsor_end = date('Y-m-d H:i:s', strtotime('+3 day', strtotime($dataStart)));
-        } else {
-            $newMusicianSponsor->sponsor_end = date('Y-m-d H:i:s', strtotime('+6 day', strtotime($dataStart)));
-        }
-
-        if ($newMusicianSponsor->sponsor_end < date("Y-m-d H:i:s")) {
-            $newMusicianSponsor->active = 0;
-        } else {
-            $newMusicianSponsor->active = 1;
-        }
+        //     $newMusicianSponsor->musician_id = $user->musician->user_id;
 
 
-        $newMusicianSponsor->save();
+        //     $newMusicianSponsor->sponsor_id = $request->sponsors;
 
-        //return dd($user->musician, $request->sponsors);
+        //     //$data_inizio = $newMusicianSponsor->sponsor_start = now();
+        //     $data_inizio = Carbon::parse($newMusicianSponsor->sponsor_start)->addHours(2);
+
+        //     $newMusicianSponsor->sponsor_start = $data_inizio;
+
+        //     //$dataStart = $newMusicianSponsor->sponsor_start->format('Y-m-d H:i:s');
+        //     //var_dump($dataStart);
+        //     if ($newMusicianSponsor->sponsor_id == 1) {
+        //         $newMusicianSponsor->sponsor_end = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($data_inizio)));
+        //     } elseif ($newMusicianSponsor->sponsor_id == 2) {
+        //         $newMusicianSponsor->sponsor_end = date('Y-m-d H:i:s', strtotime('+3 day', strtotime($data_inizio)));
+        //     } else {
+        //         $newMusicianSponsor->sponsor_end = date('Y-m-d H:i:s', strtotime('+6 day', strtotime($data_inizio)));
+        //     }
+
+        //     if ($newMusicianSponsor->sponsor_end < date("Y-m-d H:i:s")) {
+        //         $newMusicianSponsor->active = 0;
+        //     } else {
+        //         $newMusicianSponsor->active = 1;
+        //     }
+
+
+        //     $newMusicianSponsor->save();
+
+        //     $valore_sponsor = null;
+        // }
+
+
+
+        //return dd($data_inizio);
         return view('admin.musicians.show', compact('currentMusician', 'user'));
     }
 
@@ -209,5 +227,56 @@ class BoosicianController extends Controller
         $user->delete();
         $musician->delete();
         return redirect()->route('admin.home');
+    }
+
+    public function createSponsor(Musician $musician)
+    {
+        //return dd($musician);
+        $sponsors = Sponsor::all();
+        $user = Auth::user();
+        return view('admin.musicians.createSponsor', compact('sponsors', 'musician', 'user'));
+    }
+
+    public function storeSponsor(Request $request)
+    {
+        $user = Auth::user();
+
+        if ($request->sponsors != null) {
+
+            $newMusicianSponsor = new MusicianSponsor();
+
+            $newMusicianSponsor->musician_id = $user->musician->user_id;
+
+
+            $newMusicianSponsor->sponsor_id = $request->sponsors;
+
+            //$data_inizio = $newMusicianSponsor->sponsor_start = now();
+            $data_inizio = Carbon::parse($newMusicianSponsor->sponsor_start)->addHours(2);
+
+            $newMusicianSponsor->sponsor_start = $data_inizio;
+
+            //$dataStart = $newMusicianSponsor->sponsor_start->format('Y-m-d H:i:s');
+            //var_dump($dataStart);
+            if ($newMusicianSponsor->sponsor_id == 1) {
+                $newMusicianSponsor->sponsor_end = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($data_inizio)));
+            } elseif ($newMusicianSponsor->sponsor_id == 2) {
+                $newMusicianSponsor->sponsor_end = date('Y-m-d H:i:s', strtotime('+3 day', strtotime($data_inizio)));
+            } else {
+                $newMusicianSponsor->sponsor_end = date('Y-m-d H:i:s', strtotime('+6 day', strtotime($data_inizio)));
+            }
+
+            if ($newMusicianSponsor->sponsor_end < date("Y-m-d H:i:s")) {
+                $newMusicianSponsor->active = 0;
+            } else {
+                $newMusicianSponsor->active = 1;
+            }
+
+
+            $newMusicianSponsor->save();
+        }
+        $currentMusician = $user->musician;
+
+        return redirect()->route('admin.musicians.show', $user->musician);
+        return view('admin.musicians.show', compact('currentMusician', 'user'));
     }
 }

@@ -76,6 +76,7 @@
                 @endif
                 @endforeach
             </ul>
+            <a href="{{ route('admin.createSponsor', $user->musician) }}">Aggiungi Sponsorizzazione</a>
         </div>
         @endif
 
