@@ -59,11 +59,21 @@
             <h2>
                 Sponsor
             </h2>
+            <p>Cronologia</p>
             <ul>
+                <!--per aggiornare il DB digitare nel terminale php artisan schedule:run-->
+
                 @foreach($user->musician->sponsors as $sponsor)
+
                 <li>Tipologia di sponsor: {{ $sponsor->sponsor_type}} </li>
                 <li>Data inizio: {{ $sponsor->pivot->sponsor_start}} </li>
                 <li>Data fine: {{ $sponsor->pivot->sponsor_end}} </li>
+
+                @if($sponsor->pivot->active == 1)
+                <p class="text-success">Attivo</p>
+                @else
+                <p class="text-danger">Terminato</p>
+                @endif
                 @endforeach
             </ul>
         </div>

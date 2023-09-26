@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Musician;
 use App\Models\MusicalInstrument;
+use App\Models\MusicianSponsor;
 use App\Models\Sponsor;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -84,6 +85,7 @@ class BoosicianController extends Controller
 
         $user = Auth::user();
         $currentMusician = $user->musician;
+
         return view('admin.musicians.show', compact('currentMusician', 'musician', 'user'));
     }
 
@@ -125,23 +127,21 @@ class BoosicianController extends Controller
             'bio' => 'required',
             'price' => 'required|numeric|max:9999',
             'musical_genre' => 'required',
-            'musical_instruments' => ['exists:musical_instruments,id', 'required']
+            'musical_instruments' => ['exists:musical_instruments,id', 'required'],
         ]);
 
 
-        if ($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $img_path = Storage::put('uploads/img-profile', $request['image']);
             Storage::delete($musician->image);
             $data['image'] = $img_path;
-
-
         }
 
-        if ($request->hasFile('cv')){
-            $cv_path = Storage::put('uploads/cv',$request['cv']);
-            $data['cv']=$cv_path;
+        if ($request->hasFile('cv')) {
+            $cv_path = Storage::put('uploads/cv', $request['cv']);
+            $data['cv'] = $cv_path;
             Storage::delete($musician->cv);
-        }else{
+        } else {
             $cv_path = 'Non cv inserito';
         }
 
@@ -157,7 +157,7 @@ class BoosicianController extends Controller
             'cv' => $cv_path,
             'price' => $data['price'],
             'musical_genre' => $data['musical_genre'],
-            'musical_instruments' => $data['musical_instruments']
+            'musical_instruments' => $data['musical_instruments'],
         ]);
 
         $currentMusician->save();
@@ -166,6 +166,34 @@ class BoosicianController extends Controller
             $user->musician->musicalInstruments()->sync($request->musical_instruments);
         }
 
+        //$user->musician->sponsors()->sync($request->sponsors);
+
+        $newMusicianSponsor = new MusicianSponsor();
+
+        $newMusicianSponsor->musician_id = $user->musician->user_id;
+        $newMusicianSponsor->sponsor_id = $request->sponsors;
+        $newMusicianSponsor->sponsor_start = now();
+
+        $dataStart = $newMusicianSponsor->sponsor_start->format('Y-m-d H:i:s');
+        //var_dump($dataStart);
+        if ($newMusicianSponsor->sponsor_id == 1) {
+            $newMusicianSponsor->sponsor_end = date('Y-m-d H:i:s', strtotime('+1 day', strtotime($dataStart)));
+        } elseif ($newMusicianSponsor->sponsor_id == 2) {
+            $newMusicianSponsor->sponsor_end = date('Y-m-d H:i:s', strtotime('+3 day', strtotime($dataStart)));
+        } else {
+            $newMusicianSponsor->sponsor_end = date('Y-m-d H:i:s', strtotime('+6 day', strtotime($dataStart)));
+        }
+
+        if ($newMusicianSponsor->sponsor_end < date("Y-m-d H:i:s")) {
+            $newMusicianSponsor->active = 0;
+        } else {
+            $newMusicianSponsor->active = 1;
+        }
+
+
+        $newMusicianSponsor->save();
+
+        //return dd($user->musician, $request->sponsors);
         return view('admin.musicians.show', compact('currentMusician', 'user'));
     }
 
