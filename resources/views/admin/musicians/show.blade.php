@@ -11,58 +11,56 @@
                 <div class="p-4 fs-5">
                     <ul class="nav flex-column">
                         <li class="nav-item">
+                        <h1 class="h2">Boosician</h1>
+
                             <a class="nav-link {{ Route::current()->getName() == 'admin.home' ? 'active' : '' }}" href="{{ route('admin.home') }}">
-                                <i class="fa-solid fa-layer-group me-2"></i>
                                 Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Route::current()->getName() == 'admin.statistics.index' ? 'active' : '' }}" href="{{ route('admin.statistics.index') }}">
-                                <i class="fa-solid fa-user me-2"></i>
                                 Statistiche
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Route::current()->getName() == 'admin.messages.index' ? 'active' : '' }}" href="{{ route('admin.messages.index') }}">
-                                <i class="fa-solid fa-envelope me-2"></i>
                                 Messages
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link {{ Route::current()->getName() == 'admin.reviews.index' ? 'active' : '' }}" href="{{ route('admin.reviews.index') }}">
-                                <i class="fa-solid fa-star me-2"></i>
                                 Reviews
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">
-                                <i class="fa-brands fa-connectdevelop me-2"></i>
                                 Sponsor
                             </a>
                         </li>
+                            @guest
+                            @else
+                                <li class="nav-item dropdown">
+                                    <a class="dropdown-item nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                        {{ __('Logout') }}
+                                    </a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                        @csrf
+                                    </form>
+                                </li>
+                            @endguest
                     </ul>
-
-                    <div class="d-flex gap-4 align-items-center mx-4">
-                        <form action="{{ route('admin.musicians.edit', ['musician' => $currentMusician->id]) }}" method="GET">
-                            @csrf
-                            <button type="submit" class="btn btn-success btn-sm mt-3 btn-edit">Edit</button>
-                        </form>
-                        <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST">
-                            @csrf
-                            @method('delete')
-                            <button type="submit" class="btn btn-danger btn-sm mt-3 btn-delete">Cancella</button>
-                        </form>
-                    </div>
+                    
                    
 
                 </div>
             </div>
+            
         </nav>
 
         <!-- Main content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                <h1 class="h2">Boosician</h1>
+            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom flex-column">
+                
             </div>
             <div class="row">
                 <!-- Profilo -->
@@ -104,6 +102,27 @@
                             <hr>
                             <p>{{ $currentMusician->bio ?? ''}}</p>
                         </div>
+                        
+                        @if (!$currentMusician)
+                        <form action="{{ route('admin.musicians.create') }}" method="GET">
+                            @csrf
+                            <button type="submit" class="btn btn-success mt-3 btn-edit">
+                                <i class="fas fa-plus-circle me-2"></i> Crea Musicista
+                            </button>
+                        </form>
+                        @else
+                        <div class="d-flex gap-4 align-items-center mx-4">
+                            <form action="{{ route('admin.musicians.edit', ['musician' => $currentMusician->id]) }}" method="GET">
+                                @csrf
+                                <button type="submit" class="btn btn-success btn-sm mt-3 btn-edit">Edit</button>
+                            </form>
+                            <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST">
+                                @csrf
+                                @method('delete')
+                                <button type="submit" class="btn btn-danger btn-sm mt-3 btn-delete">Cancella</button>
+                            </form>
+                        </div>
+                        @endif
                     </div>
                 </div>
             </div>
@@ -116,11 +135,13 @@
                     </div>
                     <div class="card-body">
                         @foreach($messages->take(6) as $message)
-                            <div class="mb-3">
-                                <p class="fw-bold">{{$message->name}}</p>
-                                <p>{{ $message->message}}</p>
-                            </div>
-                            <hr>
+                            @if($message->musician_id == auth()->user()->musician->id)
+                                <div class="mb-3">
+                                    <p class="fw-bold">{{$message->name}}</p>
+                                    <p>{{ $message->message}}</p>
+                                </div>
+                                <hr>
+                            @endif
                         @endforeach
                         <form action="{{ route('admin.messages.index')}}" method="GET">
                             @csrf
@@ -138,11 +159,13 @@
                         </div>
                         <div class="card-body">
                             @foreach($reviews->take(7) as $review)
-                                <div class="mb-3">
-                                    <p class="fw-bold">Voto: {{ $review->vote }}</p>
-                                    <p>{{$review->content }}</p>
-                                </div>
-                                <hr>
+                                @if($review->musician_id == auth()->user()->musician->id)
+                                    <div class="mb-3">
+                                        <p class="fw-bold">Voto: {{ $review->vote }}</p>
+                                        <p>{{$review->content }}</p>
+                                    </div>
+                                    <hr>
+                                @endif
                             @endforeach
                             <form action="{{ route('admin.reviews.index')}}" method="GET">
                                 @csrf
@@ -156,12 +179,6 @@
         </main>
     </div>
 </div>
-
-
-
-
-
-
 
 
 
