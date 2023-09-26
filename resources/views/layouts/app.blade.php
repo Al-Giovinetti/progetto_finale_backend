@@ -18,7 +18,7 @@
 </head>
 <body>
     <div id="app">
-        @include('partials.header')
+
        
 
         <main class="py-4">
