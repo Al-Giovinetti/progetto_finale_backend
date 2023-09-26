@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiMessageController;
 use App\Http\Controllers\Api\ApiReviewController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -25,6 +26,7 @@ Route::get('/musicians/{id}',[ApiMusicianController::class,'show'])->name('api.m
 
 
 Route::post('/review-form', [ ApiReviewController::class, 'store'])->name('api.review-form');
+Route::post('/contact-form', [ ApiMessageController::class, 'store'])->name('api.contact-form');
 
 //Route::get('/user',[ApiMusicianController::class,'user'])->name('api.musicians.user');
 //Route::get('/instrument',[ApiMusicianController::class,'instrument'])->name('api.musicians.instrument');
