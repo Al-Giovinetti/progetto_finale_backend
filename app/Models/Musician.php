@@ -48,6 +48,6 @@ class Musician extends Model
 
     public function sponsors()
     {
-        return $this->belongsToMany(Sponsor::class, 'musician_sponsor')->withPivot('sponsor_start', 'sponsor_end');
+        return $this->belongsToMany(Sponsor::class, 'musician_sponsor')->withPivot('sponsor_start', 'sponsor_end', 'active');
     }
 }
