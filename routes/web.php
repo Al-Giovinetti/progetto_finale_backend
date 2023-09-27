@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BoosicianController;
 use App\Http\Controllers\Admin\MessagesController;
 use App\Http\Controllers\Admin\ReviewsController;
 use App\Http\Controllers\Admin\StatisticsController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,14 +27,14 @@ Auth::routes();
 //musician route
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/home', [BoosicianController::class, 'index'])->name('home');
+    Route::get('/musicians/{musician}/create_sponsor', [BoosicianController::class, 'createSponsor'])->name('createSponsor');
+    Route::post('/musicians/{musician}/store_sponsor', [BoosicianController::class, 'storeSponsor'])->name('storeSponsor');
     Route::resource('/musicians', BoosicianController::class);
-
 });
 
 //messages route
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::resource('/messages', MessagesController::class);
-
 });
 
 //reviews route
@@ -45,5 +46,4 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 //statistics route
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
-
 });

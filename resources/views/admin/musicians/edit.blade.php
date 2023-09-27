@@ -49,8 +49,8 @@
         <input type="radio" name="image-profile" id="ProfileImgFile">File
         <input type="radio" name="image-profile" id="ProfileImgLink">Image-link
 
-        <input type="file" class="form-control d-none" id="imageFile" aria-describedby="image" name="image"  placeholder="Upload your image" value="{{ old('image', '')}}">
-        <input type="text" class="form-control d-none" id="imageLink" aria-describedby="image" name="image"  placeholder="Upload your image" value="{{ old('image', '')}}"> 
+        <input type="file" class="form-control d-none" id="imageFile" aria-describedby="image" name="image" placeholder="Upload your image" value="{{ old('image', '')}}">
+        <input type="text" class="form-control d-none" id="imageLink" aria-describedby="image" name="image" placeholder="Upload your image" value="{{ old('image', '')}}">
 
     </div>
 
@@ -67,7 +67,7 @@
     @enderror
     <div class="mb-3">
         <label for="cv" class="cv">cv</label>
-        <input type="file" class="form-control" id="cv" aria-describedby="cv" name="cv"  placeholder="Upload your cv" value="{{ old('cv', '')}}">
+        <input type="file" class="form-control" id="cv" aria-describedby="cv" name="cv" placeholder="Upload your cv" value="{{ old('cv', '')}}">
         <!--<input type="text" class="form-control" id="cv" value="{{ old('cv', $currentMusician->cv)}}" name="cv"> -->
     </div>
 
@@ -93,30 +93,12 @@
     <div>
         <h2>Strumenti Musicale</h2>
         @foreach ($musical_instruments as $musical_instrument)
-        <input type="checkbox" name="musical_instruments[]" class="form-check-input" id="musical_instruments" value="{{ $musical_instrument->id }}" @if( in_array($musical_instrument->id, old('musical_instruments', []))) checked @endif>
-        <label for="tags" class="form-check-label me-3">
+        <input type="checkbox" name="musical_instruments[]" class="form-check-input" id="musical_instrument_{{ $musical_instrument->id }}" value="{{ $musical_instrument->id }}" @if(in_array($musical_instrument->id, old('musical_instruments', []))) checked @endif>
+        <label for="musical_instrument_{{ $musical_instrument->id }}" class="form-check-label me-3">
             {{ $musical_instrument->name }}
         </label>
         @endforeach
     </div>
-
-
-    <div>
-        <label for="sponsors" class="d-block">
-            <h2>Sponsor</h2>
-        </label>
-        <select class='form-select' name="sponsors" id="sponsors">
-            <option value="no sponsor">No sponsor</option>
-            @foreach ($sponsors as $sponsor)
-            <option value="{{ $sponsor->id }}" {{ old(`id`, $sponsor->id) == $sponsor->id ? 'selected' : '' }}>
-                {{ $sponsor->sponsor_type }}
-            </option>
-            @endforeach
-        </select>
-
-    </div>
-
-
 
     <button type="submit" class="btn btn-primary">Update</button>
 </form>
@@ -133,14 +115,14 @@
     const inputFile = document.getElementById('imageFile');
     const inputLink = document.getElementById('imageLink');
 
-    RadioFile.addEventListener('click',function(){
+    RadioFile.addEventListener('click', function() {
         inputFile.classList.remove('d-none');
-        inputLink.className='form-control d-none'
+        inputLink.className = 'form-control d-none'
     })
 
-    RadioLink.addEventListener('click',function(){
+    RadioLink.addEventListener('click', function() {
         inputLink.classList.remove('d-none');
-        inputFile.className='form-control d-none'
+        inputFile.className = 'form-control d-none'
     })
 </script>
 
