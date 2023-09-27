@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\BoosicianController;
 use App\Http\Controllers\Admin\MessagesController;
 use App\Http\Controllers\Admin\ReviewsController;
 use App\Http\Controllers\Admin\StatisticsController;
+use App\Http\Controllers\BraintreeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -47,3 +48,11 @@ Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
 Route::prefix('admin')->name('admin.')->middleware('auth')->group(function () {
     Route::get('/statistics', [StatisticsController::class, 'index'])->name('statistics.index');
 });
+
+
+Route::get('/payment', [BraintreeController::class, 'token'])->name('token')->middleware('auth');
+Route::post('/payment', [BraintreeController::class, 'payment'])->name('payment')->middleware('auth');
+
+
+
+
