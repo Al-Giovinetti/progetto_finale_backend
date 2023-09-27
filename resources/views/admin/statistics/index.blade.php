@@ -2,15 +2,19 @@
 
 @section('content')
 
-
-<div style="width: 600px; margin: auto;">
-    <canvas id="messageChart"></canvas>
-    <canvas id="reviewChart"></canvas> 
-    <canvas id="voteChart"></canvas> 
-
+<div class="container">
+    <div style="width: 600px; margin: auto;">
+        <canvas id="messageChart"></canvas>
+        <canvas id="reviewChart"></canvas> 
+        <canvas id="voteChart"></canvas> 
+    
+    </div>
 </div>
-
-
+<div class="container">
+    <a class="active {{ Route::current()->getName() == 'admin.home' ? 'active' : '' }}" aria-current="page" href="{{ route('admin.home') }}">
+        <h3>Back</h3>
+    </a>
+</div>
 
 @endsection
 

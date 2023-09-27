@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Message;
 use App\Models\Musician;
 use App\Models\MusicalInstrument;
 use App\Models\MusicianSponsor;
+use App\Models\Review;
 use App\Models\Sponsor;
 use App\Models\User;
 use Carbon\Carbon;
@@ -22,12 +24,14 @@ class BoosicianController extends Controller
      */
     public function index()
     {
+        $messages = Message::all();
+        $reviews = Review::all();
         $musician = Musician::all();
         $user = Auth::user();
         $currentMusician = $user->musician;
 
 
-        return view('admin.musicians.show', compact('currentMusician', 'musician', 'user'));
+        return view('admin.musicians.show', compact('currentMusician', 'musician', 'user', 'reviews', 'messages'));
     }
 
     /**
@@ -86,11 +90,12 @@ class BoosicianController extends Controller
      */
     public function show(Musician $musician)
     {
-
+        $reviews = Review::all();
         $user = Auth::user();
         $currentMusician = $user->musician;
+        $messages = Message::all();
 
-        return view('admin.musicians.show', compact('currentMusician', 'musician', 'user'));
+        return view('admin.musicians.show', compact('currentMusician', 'musician', 'user', 'reviews', 'messages'));
     }
 
     /**

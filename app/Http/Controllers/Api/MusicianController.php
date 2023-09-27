@@ -16,7 +16,7 @@ class MusicianController extends Controller
      */
     public function index()
     {
-        $musicians = Musician::with('user', 'reviews', 'musicalInstruments') ->paginate(10);
+        $musicians = Musician::with('user', 'reviews', 'musicalInstruments') ->paginate(30);
 
         return response()->json(
             [
