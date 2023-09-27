@@ -54,5 +54,6 @@ Route::get('/payment', [BraintreeController::class, 'token'])->name('token')->mi
 Route::post('/payment', [BraintreeController::class, 'payment'])->name('payment')->middleware('auth');
 
 
+Route::get('/admin/payments/braintree', [BraintreeController::class, 'show'])->name('admin.payments.braintree');
 
 
