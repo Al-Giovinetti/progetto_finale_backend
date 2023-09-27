@@ -22,7 +22,7 @@
         <input type="submit" value="Paga" />
         <!-- Questo campo hidden è dove verrà inserito il "payment_method_nonce" generato da Braintree -->
         <input type="hidden" id="nonce" name="payment_method_nonce" />
-         <!-- Aggiungi questo campo CSRF token per proteggere il tuo form -->
+        <!-- Aggiungi questo campo CSRF token per proteggere il tuo form -->
       </form>
       
 
