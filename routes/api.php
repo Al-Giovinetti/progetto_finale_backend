@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\ApiBraintreeController;
 use App\Http\Controllers\Api\ApiMessageController;
 use App\Http\Controllers\Api\ApiReviewController;
 use Illuminate\Http\Request;
