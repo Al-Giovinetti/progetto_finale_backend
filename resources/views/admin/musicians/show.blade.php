@@ -33,8 +33,8 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link {{ Route::currentRouteName() == 'token' || Route::currentRouteName() == 'payment' ? 'active' : '' }}" href="{{ route('token') }}">
-                                PAGAMENTI
+                            <a class="nav-link" href="{{ route('admin.createSponsor', $user->musician) }}">
+                                Sponsor
                             </a>
                         </li>
                         @guest
@@ -123,7 +123,6 @@
                                         @endif
                                         @endforeach
                                     </ul>
-                                    <a href="{{ route('admin.createSponsor', $user->musician) }}">Aggiungi Sponsorizzazione</a>
                                 </div>
                                 @endif
                             </div>
