@@ -60,4 +60,10 @@ public function payment(Request $request){
 }
 
 
+
+
+public function show(){
+    $clientToken = $this->gateway->clientToken()->generate();
+    return view('admin.payments.braintree', compact('clientToken'));
+}
 }

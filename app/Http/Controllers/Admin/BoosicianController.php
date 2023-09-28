@@ -281,7 +281,7 @@ class BoosicianController extends Controller
         }
         $currentMusician = $user->musician;
 
-        return redirect()->route('admin.musicians.show', $user->musician);
-        return view('admin.musicians.show', compact('currentMusician', 'user'));
+        return redirect()->route('admin.payments.braintree', $user->musician);
+        return view('admin.payments.braintree', compact('currentMusician', 'user'));
     }
 }
