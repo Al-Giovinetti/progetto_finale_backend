@@ -140,7 +140,7 @@
                                     @csrf
                                     <button type="submit" class="btn btn-success btn-sm mt-3 btn-edit">Edit</button>
                                 </form>
-                                <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST">
+                                <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST" class="form-canc">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm mt-3 btn-delete">Cancella</button>
@@ -215,6 +215,7 @@
 <script>
     //Quando vuoi cancellare il profilo ti chiede prima la conferma
     const formCanc = document.querySelector('form.form-canc');
+    console.log(formCanc);
 
     formCanc.addEventListener('submit', function(event) {
         event.preventDefault();
