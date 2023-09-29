@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\Musician;
+use App\Models\Review;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -85,10 +86,15 @@ class RegisterController extends Controller
             'musical_genre' => '',
         ]);
 
-
         $newMusician->save;
 
+        $newReviews = Review::create([
+            'musician_id' => $newMusician->user_id,
+            'content' => '',
+            'vote' => 0,
+        ]);
 
+        $newReviews->save;
         return $user;
     }
 }

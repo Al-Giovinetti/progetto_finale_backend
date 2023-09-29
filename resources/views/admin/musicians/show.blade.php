@@ -158,7 +158,7 @@
                             <h2>Messaggi</h2>
                         </div>
                         <div class="card-body">
-                            @foreach($messages->take(6) as $message)
+                            @foreach($messages as $message)
                             @if($message->musician_id == auth()->user()->musician->id)
                             <div class="mb-3">
                                 <p class="fw-bold">{{$message->name}}</p>
@@ -182,14 +182,14 @@
                             <h2>Recensioni</h2>
                         </div>
                         <div class="card-body">
-                            @foreach($reviews->take(7) as $review)
-                            @if($review->musician_id == auth()->user()->musician->id)
-                            <div class="mb-3">
-                                <p class="fw-bold">Voto: {{ $review->vote }}</p>
-                                <p>{{$review->content }}</p>
-                            </div>
-                            <hr>
-                            @endif
+                            @foreach($reviews as $review)
+                                @if($review->musician_id == auth()->user()->musician->id && $review->vote != 0)
+                                    <div class="mb-3">
+                                        <p class="fw-bold">Voto: {{ $review->vote }}</p>
+                                        <p>{{$review->content }}</p>
+                                    </div>
+                                    <hr>
+                                @endif
                             @endforeach
                             <form action="{{ route('admin.reviews.index')}}" method="GET">
                                 @csrf

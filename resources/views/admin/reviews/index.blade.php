@@ -7,16 +7,19 @@
     @foreach ($musicianReview as $review)
     <div class="card mb-3">
         <div class="card-body">
+            @if ($review->vote != 0)
             <p class="my_content">Contenuto:
                 {{$review->content}}
             </p>
             <p class="{{getColorForClass($review->vote)}}">Voto:
                 {{$review->vote}}
             </p>
+            @endif
         </div>
     </div>
     @endforeach
 </div>
+
 
 
 <div class="container">
