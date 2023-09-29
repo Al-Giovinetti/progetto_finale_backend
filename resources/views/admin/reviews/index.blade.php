@@ -6,18 +6,16 @@
 <div class="container">
     <ul>
         @foreach ($musicianReview as $review)
-        <li>
-            <p>Contenuto:
-                {{$review->content}}
-            </p>
-            <p>voto:
-    
-                {{$review->vote}}
-            </p>
-        </li>
+            @if ($review->vote != 0)
+                <li>
+                    <p>Contenuto: {{ $review->content }}</p>
+                    <p>Voto: {{ $review->vote }}</p>
+                </li>
+            @endif
         @endforeach
     </ul>
 </div>
+
 
 
 <div class="container">
