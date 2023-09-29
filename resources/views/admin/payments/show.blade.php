@@ -8,8 +8,8 @@
     <div style="border-radius:200px; height:200px; width:200px; background: #F8FAF5; margin:0 auto;">
         <i class="checkmark">✓</i>
     </div>
-        <h1>Success</h1> 
-        <p>We received your purchase request;<br/>You will be redirect to your personal page shortly</p>
+        <h1>L' oprazione ha avuto successo</h1> 
+        <p>Abbiamo ricevuto la tua richiesta di acquisto;<br/>A breve verrai reindirizzato alla tua pagina personale.</p>
     </div>
     </body>
 

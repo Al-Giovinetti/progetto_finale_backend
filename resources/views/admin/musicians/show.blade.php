@@ -140,7 +140,7 @@
                                     @csrf
                                     <button type="submit" class="btn btn-success btn-sm mt-3 btn-edit">Edit</button>
                                 </form>
-                                <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST">
+                                <form action="{{ $currentMusician ? route('admin.musicians.destroy', $currentMusician) : '#' }}" method="POST" class="form-canc">
                                     @csrf
                                     @method('delete')
                                     <button type="submit" class="btn btn-danger btn-sm mt-3 btn-delete">Cancella</button>
@@ -158,7 +158,7 @@
                             <h2>Messaggi</h2>
                         </div>
                         <div class="card-body">
-                            @foreach($messages->take(6) as $message)
+                            @foreach($messages as $message)
                             @if($message->musician_id == auth()->user()->musician->id)
                             <div class="mb-3">
                                 <p class="fw-bold">{{$message->name}}</p>
@@ -182,14 +182,14 @@
                             <h2>Recensioni</h2>
                         </div>
                         <div class="card-body">
-                            @foreach($reviews->take(7) as $review)
-                            @if($review->musician_id == auth()->user()->musician->id)
-                            <div class="mb-3">
-                                <p class="fw-bold">Voto: {{ $review->vote }}</p>
-                                <p>{{$review->content }}</p>
-                            </div>
-                            <hr>
-                            @endif
+                            @foreach($reviews as $review)
+                                @if($review->musician_id == auth()->user()->musician->id && $review->vote != 0)
+                                    <div class="mb-3">
+                                        <p class="fw-bold">Voto: {{ $review->vote }}</p>
+                                        <p>{{$review->content }}</p>
+                                    </div>
+                                    <hr>
+                                @endif
                             @endforeach
                             <form action="{{ route('admin.reviews.index')}}" method="GET">
                                 @csrf
@@ -215,6 +215,7 @@
 <script>
     //Quando vuoi cancellare il profilo ti chiede prima la conferma
     const formCanc = document.querySelector('form.form-canc');
+    console.log(formCanc);
 
     formCanc.addEventListener('submit', function(event) {
         event.preventDefault();
