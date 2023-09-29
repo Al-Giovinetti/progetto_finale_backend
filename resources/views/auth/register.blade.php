@@ -1,13 +1,13 @@
 @extends('layouts.app')
-
+@include('partials.header')
 @section('content')
-<div class="container">
+<div class="container cardContainer pb-4">
     <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+        <div class="col-md-8 col-sm-10">
+            <div class="signInCard">
+                <div class="signInCardHeader p-3">{{ __('Register') }}</div>
 
-                <div class="card-body">
+                <div class="signInCardBody p-3">
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
 
@@ -63,7 +63,7 @@
 
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
+                                <button type="submit" class="btn btn-sm signInBtn">
                                     {{ __('Register') }}
                                 </button>
                             </div>
@@ -74,4 +74,5 @@
         </div>
     </div>
 </div>
+@include('partials.footer')
 @endsection
