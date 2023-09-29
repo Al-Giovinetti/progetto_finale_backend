@@ -39,10 +39,7 @@ class BoosicianController extends Controller
      */
     public function create()
     {
-        /*
-        $sponso = MusicalInstrument::all();
-        return view('admin.musicians.create', compact('musical_instruments'));
-        */
+
     }
 
     /**
@@ -125,6 +122,8 @@ class BoosicianController extends Controller
      */
     public function update(Request $request, Musician $musician)
     {
+        $reviews = Review::all();
+        $messages = Message::all();
         $user = Auth::user();
         $currentMusician = $user->musician;  //recupero il profilo del musicista assocciato all'utente attualmente connesso
         $data = $request->validate([
@@ -217,7 +216,7 @@ class BoosicianController extends Controller
 
 
         //return dd($data_inizio);
-        return view('admin.musicians.show', compact('currentMusician', 'user'));
+        return view('admin.musicians.show', compact('currentMusician', 'user', 'messages', 'reviews'));
     }
 
     /**
@@ -236,6 +235,7 @@ class BoosicianController extends Controller
 
     public function createSponsor(Musician $musician)
     {
+
         //return dd($musician);
         $sponsors = Sponsor::all();
         $user = Auth::user();
