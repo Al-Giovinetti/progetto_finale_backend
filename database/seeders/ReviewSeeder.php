@@ -41,14 +41,14 @@ class ReviewSeeder extends Seeder
         ];
 
         foreach($musicians as $musician){
-            $randomNumber = rand(0, 5);
+            $randomNumber = rand(1, 5);
             
             for($i = 0; $i <= $randomNumber; $i++){
             $rand_index = array_rand($textContent);
             $newReview = new Review();
             $newReview -> musician_id = $musician->id;
             $newReview -> content = $textContent[$rand_index];
-            $newReview -> vote = $faker->numberBetween(0, 5);
+            $newReview -> vote = $faker->numberBetween(1, 5);
             $newReview -> save();
             }
         }
