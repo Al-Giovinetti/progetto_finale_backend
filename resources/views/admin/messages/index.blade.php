@@ -12,7 +12,7 @@
             </p>
             <p class="my_message">
                 
-                {{$message->message}}
+                "{{$message->message}}"
             </p>
             <p class="my_email">Email:
                 {{$message->mail}}
