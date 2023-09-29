@@ -8,6 +8,8 @@ use App\Models\Review;
 use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\Musician;
+use App\Models\MusicianSponsor;
+
 
 class MusicianController extends Controller
 {
@@ -16,7 +18,7 @@ class MusicianController extends Controller
      */
     public function index()
     {
-        $musicians = Musician::with('user', 'reviews', 'musicalInstruments') ->paginate(30);
+        $musicians = Musician::with('user', 'reviews', 'musicalInstruments', 'sponsors') ->paginate(30);
 
         return response()->json(
             [
@@ -54,6 +56,16 @@ class MusicianController extends Controller
         [
             'success'=>true,
             'results'=>$reviews
+        ];
+    }
+
+    public function sponsor(){
+        $musicianSponsor = MusicianSponsor::all();
+
+        return response()->json($musicianSponsor);
+        [
+            'success'=>true,
+            'results'=>$musicianSponsor
         ];
     }
 
