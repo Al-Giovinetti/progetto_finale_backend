@@ -4,25 +4,49 @@
 @section('content')
 
 <div class="container">
-    <ul>
-        @foreach ($musicianReview as $review)
-        <li>
-            <p>Contenuto:
+    @foreach ($musicianReview as $review)
+    <div class="card mb-3">
+        <div class="card-body">
+            <p class="my_content">Contenuto:
                 {{$review->content}}
             </p>
-            <p>voto:
-    
+            <p class="{{getColorForClass($review->vote)}}">Voto:
                 {{$review->vote}}
             </p>
-        </li>
-        @endforeach
-    </ul>
+        </div>
+    </div>
+    @endforeach
 </div>
 
 
 <div class="container">
     <a class="active {{ Route::current()->getName() == 'admin.home' ? 'active' : '' }}" aria-current="page" href="{{ route('admin.home') }}">
-        <h3>Back</h3>
+        <button class="btn btn-primary">Indietro</button>
     </a>
 </div>
 @endsection
+
+@php
+    function getColorForClass($vote){
+        if($vote <= 2){
+            return 'vote-red';
+        }elseif($vote >= 3){
+            return 'vote-green';
+        }
+    }
+@endphp
+
+
+<style lang="scss" scoped>
+    p.my_content{
+        font-size: 1.3rem;
+    }
+
+    .vote-red{
+        color: red;
+    }
+
+    .vote-green{
+        color: green;
+    }
+</style>
