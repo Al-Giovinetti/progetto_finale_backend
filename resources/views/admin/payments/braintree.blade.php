@@ -1,41 +1,25 @@
-
-
-
-
-
 <head>
     <meta charset="utf-8" />
     <script src="https://js.braintreegateway.com/web/dropin/1.40.2/js/dropin.min.js"></script>
   </head>
+
   <body>
     <!-- Step one: add an empty container to your page -->
     <div id="dropin-container"></div>
-  
-
-
-
 
     <form id="payment-form" action="{{ route('payment') }}" method="post">
         @csrf
         <!-- Metti l'empty container in cui vuoi mostrare il widget di pagamento Braintree -->
         <div id="dropin-container"></div>
-        <input type="submit" value="Paga" />
+        <input type="submit" class="my_btn" value="Paga" />
         <!-- Questo campo hidden è dove verrà inserito il "payment_method_nonce" generato da Braintree -->
         <input type="hidden" id="nonce" name="payment_method_nonce" />
         <!-- Aggiungi questo campo CSRF token per proteggere il tuo form -->
       </form>
       
-
-
-
-
-
-
-
-
     <script type="text/javascript">
     // Step two: create a dropin instance using that container (or a string
-//   that functions as a query selector such as '#dropin-container')
+    //that functions as a query selector such as '#dropin-container')
     braintree.dropin.create({
     // Step three: get client token from your server, such as via
     //    templates or async http request
@@ -45,8 +29,6 @@
     // Use 'dropinInstance' here
     // Methods documented at https://braintree.github.io/braintree-web-drop-in/docs/current/Dropin.html
     });
-
-
 
     const form = document.getElementById('payment-form');
 
@@ -74,3 +56,14 @@
     });
     </script>
   </body>
+
+  <style>
+    input.my_btn{
+      border: 1px solid rgb(13, 110, 253);
+      padding: 0.5rem;
+      background-color:rgb(13, 110, 253);
+      color: white;
+      border-radius: 13px;
+    }
+
+  </style>
