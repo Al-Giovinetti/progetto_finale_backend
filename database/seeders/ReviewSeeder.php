@@ -41,7 +41,7 @@ class ReviewSeeder extends Seeder
         ];
 
         foreach($musicians as $musician){
-            $randomNumber = rand(20, 60);
+            $randomNumber = rand(90, 100);
             
             for($i = 0; $i <= $randomNumber; $i++){
             $rand_index = array_rand($textContent);
