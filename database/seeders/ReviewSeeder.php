@@ -41,7 +41,7 @@ class ReviewSeeder extends Seeder
         ];
 
         foreach($musicians as $musician){
-            $randomNumber = rand(1, 5);
+            $randomNumber = rand(20, 60);
             
             for($i = 0; $i <= $randomNumber; $i++){
             $rand_index = array_rand($textContent);
@@ -49,6 +49,7 @@ class ReviewSeeder extends Seeder
             $newReview -> musician_id = $musician->id;
             $newReview -> content = $textContent[$rand_index];
             $newReview -> vote = $faker->numberBetween(1, 5);
+            $newReview -> created_at = $faker->dateTimeBetween('2020-01-01', 'now')->format('Y-m-d');
             $newReview -> save();
             }
         }
