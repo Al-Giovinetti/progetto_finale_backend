@@ -17,8 +17,13 @@ class StatisticsController extends Controller
         $messages = Message::all();
         $musicianMessages = Message::where('musician_id', $userId->id)->get();
 
-        $messageGroup = $musicianMessages->groupBy(function ($message) {
-            return $message->created_at->format('Y-m'); // Utilizziamo format per formattare la data correttamente
+        $messageGroup = $musicianMessages
+        ->sortBy(function($message){
+        return $message->created_at; // Utilizziamo format per formattare la data correttamente
+    })
+        ->groupBy(function ($message) {
+        return $message->created_at->format('Y-m'); // Utilizziamo format per formattare la data correttamente
+
         });
 
         $messageCounts = $messageGroup->map(function ($messageGroup) {
@@ -34,7 +39,11 @@ class StatisticsController extends Controller
             $review = Review::all();
             $musicianReview = Review::where('musician_id', $userId->id)->get();
             
-            $reviewGroup = $musicianReview->groupBy(function($review){
+            $reviewGroup = $musicianReview
+            ->sortBy(function($review){
+                return $review->create_at;
+            })
+            ->groupBy(function($review){
                 return $review->created_at->format('Y-m');
             });
             
@@ -44,13 +53,16 @@ class StatisticsController extends Controller
 
 
 
-            $votes = $musicianReview->groupBy(function($review) {
+            $votes = $musicianReview
+            ->sortBy('created_at') // Ordina i risultati per la colonna 'created_at'
+            ->groupBy(function ($review) {
                 return $review->created_at->format('Y-m');
-            })->map(function($reviews) {
+            })
+            ->map(function($reviews) {
                 $voteCounts = $reviews->pluck('vote')->map(function($vote) {
-                    if ($vote >= 1 && $vote <= 2) {
+                    if ($vote == 1 && $vote == 2) {
                         return '1-2';
-                    } elseif ($vote >= 3 && $vote <= 4) {
+                    } elseif ($vote == 3 && $vote == 4) {
                         return '3-4';
                     } elseif ($vote == 5) {
                         return '5';
