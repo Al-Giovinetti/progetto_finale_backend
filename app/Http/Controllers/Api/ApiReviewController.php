@@ -25,7 +25,13 @@ class ApiReviewController extends Controller
                 'errors' => $validation->errors(),
             ]);
         }
+        
+        $review = new Review();
+        $review->vote = $data['vote'];
+        $review->content = $data['content'];
+        $review->musician_id = $data['musician_id'];
 
+        $review->save();
 
 
         return response()->json([

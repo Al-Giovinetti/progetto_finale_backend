@@ -49,9 +49,6 @@
                         </li>
                         @endguest
                     </ul>
-
-
-
                 </div>
             </div>
 
@@ -202,7 +199,7 @@
     </div>
     </main>
 </div>
-</div>
+
 
 
 

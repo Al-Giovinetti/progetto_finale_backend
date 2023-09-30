@@ -35,7 +35,7 @@ class MessageSeeder extends Seeder
     
     
     foreach($musicians as $musician){
-        $randomNumber = rand(0, 5);
+        $randomNumber = rand(199, 200 );
         
         for($i = 0; $i < $randomNumber; $i++){
             $rand_index = array_rand($messageText);
@@ -44,6 +44,7 @@ class MessageSeeder extends Seeder
             $newMessage->name=$faker->name();
             $newMessage->mail=$faker->email();
             $newMessage->message= $messageText[$rand_index];
+            $newMessage->created_at = $faker->dateTimeBetween('2020-01-01', 'now')->format('Y-m-d');
             $newMessage->save();
             }
         }
