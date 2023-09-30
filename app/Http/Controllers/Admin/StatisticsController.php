@@ -12,7 +12,10 @@ class StatisticsController extends Controller
 {
 
     public function index(){
-        
+        $reviews = Review::all();
+        $user = Auth::user();
+        $currentMusician = $user->musician;
+        $messages = Message::all();
         $userId = Auth::user();
         $messages = Message::all();
         $musicianMessages = Message::where('musician_id', $userId->id)->get();
@@ -53,33 +56,43 @@ class StatisticsController extends Controller
 
 
 
-            $votes = $musicianReview
-            ->sortBy('created_at') // Ordina i risultati per la colonna 'created_at'
-            ->groupBy(function ($review) {
+            $votesData = [];
+
+            // Raggruppa le recensioni per mese/anno
+            $groupedReviews = $musicianReview->groupBy(function ($review) {
                 return $review->created_at->format('Y-m');
-            })
-            ->map(function($reviews) {
-                $voteCounts = $reviews->pluck('vote')->map(function($vote) {
-                    if ($vote == 1 && $vote == 2) {
-                        return '1-2';
-                    } elseif ($vote == 3 && $vote == 4) {
-                        return '3-4';
-                    } elseif ($vote == 5) {
-                        return '5';
-                    }
-                });
-            
-                return $voteCounts->countBy();
             });
             
-            return view('admin.statistics.index', compact('messageCounts', 'reviewCounts', 'votes'));
+            // Itera attraverso i gruppi di recensioni
+            foreach ($groupedReviews as $monthYear => $reviews) {
+                $voteCounts = [
+                    '1-2' => 0,
+                    '3-4' => 0,
+                    '5'   => 0,
+                ];
             
-  
+                // Calcola i conteggi delle fasce di voto per questo mese/anno
+                foreach ($reviews as $review) {
+                    $vote = $review->vote;
+            
+                    if ($vote >= 1 && $vote <= 2) {
+                        $voteCounts['1-2']++;
+                    } elseif ($vote >= 3 && $vote <= 4) {
+                        $voteCounts['3-4']++;
+                    } elseif ($vote == 5) {
+                        $voteCounts['5']++;
+                    }
+                }
+            
+                // Aggiungi i conteggi dei voti per questo mese/anno ai dati
+                $votesData[$monthYear] = $voteCounts;
+            }
+            
+            return view('admin.statistics.index', compact('messageCounts', 'reviewCounts', 'votesData','reviews', 'user', 'currentMusician', 'messages'));
+            
         
     }
 
 
 }
-
-
 

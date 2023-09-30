@@ -47,26 +47,30 @@ new Chart(reviewCtx, {
 }
 });
 
+
 new Chart(voteCtx, {
     type: 'bar',
     data: voteData,
     options: {
         scales: {
-            x:{
-                title:{
-                    display:true,
+            x: {
+                title: {
+                    display: true,
                     text: 'Mesi/Anni'
                 }
             },
             y: {
                 beginAtZero: true,
-                title:{
+                title: {
                     display: true,
-                    text : 'Numero Voti'
+                    text: 'Numero Voti'
+                },
+                ticks: {
+                    stepSize: 1,
+                    beginAtZero: true
                 }
             }
         }
     }
 });
-
 
