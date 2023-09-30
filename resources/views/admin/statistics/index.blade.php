@@ -2,9 +2,6 @@
 
 @section('content')
 
-
-
-
 <div class="container-fluid">
     <div class="row mt-5">
         <!-- Barra laterale -->
@@ -54,10 +51,8 @@
                         </ul>
                     </div>
                 </div>
-
             </nav>
 
-        
         <!-- Contenuto principale -->
         <div class="col-md-8 col-lg-9 justify-content-center">
             <div class="card">
@@ -97,17 +92,17 @@
 <script>
 
 //grafico messaggi
-var messageCtx = document.getElementById('messageChart').getContext('2d');
-    var messageCounts = @json($messageCounts);
-    const messageData = {
-        labels: @json($messageCounts->keys()),
-        datasets: [{
-            label: 'Numero di messaggi Ricevuti',
-            backgroundColor: getRandomColor(), 
-            borderColor: 'rgb(255, 99, 132)',
-            data: @json($messageCounts->values()), 
-        }]
-    };
+    var messageCtx = document.getElementById('messageChart').getContext('2d');
+        var messageCounts = @json($messageCounts);
+        const messageData = {
+            labels: @json($messageCounts->keys()),
+            datasets: [{
+                label: 'Numero di messaggi Ricevuti',
+                backgroundColor: getRandomColor(), 
+                borderColor: 'rgb(255, 99, 132)',
+                data: @json($messageCounts->values()), 
+            }]
+        };
 
 
     
@@ -130,28 +125,27 @@ var messageCtx = document.getElementById('messageChart').getContext('2d');
 
     //grafico voti
     var voteCtx = document.getElementById('voteChart').getContext('2d');
-var votesData = @json($votesData);
+    var votesData = @json($votesData);
 
-const months = Object.keys(votesData);
-const datasets = [];
+    const months = Object.keys(votesData);
+    const datasets = [];
 
-// Ciclo attraverso le fasce di voto
-const fasce = ['1-2', '3-4', '5']; // Elenco completo delle fasce di voto
-fasce.forEach(fascia => {
-    const dataPoints = months.map(month => votesData[month][fascia] || 0);
-    datasets.push({
-        label: `Fascia ${fascia}`, 
-        backgroundColor: getRandomColor(), 
-        borderColor: 'rgb(255, 99, 132)',
-        data: dataPoints,
+    // Ciclo attraverso le fasce di voto
+    const fasce = ['1-2', '3-4', '5']; // Elenco completo delle fasce di voto
+    fasce.forEach(fascia => {
+        const dataPoints = months.map(month => votesData[month][fascia] || 0);
+        datasets.push({
+            label: `Fascia ${fascia}`, 
+            backgroundColor: getRandomColor(), 
+            borderColor: 'rgb(255, 99, 132)',
+            data: dataPoints,
+        });
     });
-});
 
-const voteData = {
-    labels: months,
-    datasets: datasets,
-};
-
+    const voteData = {
+        labels: months,
+        datasets: datasets,
+    };
 
     function getRandomColor() {
     const letters = '0123456789ABCDEF';
@@ -180,17 +174,6 @@ const voteData = {
         width: 100%;
         height: 100%;
     }
-
-
-
-
-
-
-
-
-
-
-
     aside {
         display: flex;
         flex-direction: column;
@@ -227,7 +210,6 @@ const voteData = {
         position: relative;
         top: 3rem;
     }
-
 
     a {
         display: flex;
