@@ -6,13 +6,45 @@ import Chart from 'chart.js/auto';
 new Chart(messageCtx, {
     type: 'line',
     data: messageData,
-    options: {}
+    options: {
+        scales:{
+            x: {
+                title:{
+                    display: true,
+                    text: 'Mesi'
+                }
+            },
+            y:{
+                title:{
+                    display: true,
+                    text : 'Numero Messaggi'
+                }
+            },
+            
+    }
+}
 });
 
 new Chart(reviewCtx, {
     type: 'line',
     data: reviewData,
-    options: {}
+    options: {
+        scales:{
+            x: {
+                title:{
+                    display: true,
+                    text: 'Mesi/Anni'
+                }
+            },
+            y:{
+                title:{
+                    display: true,
+                    text : 'Numero Recensioni'
+                }
+            },
+            
+    }
+}
 });
 
 new Chart(voteCtx, {
@@ -20,9 +52,21 @@ new Chart(voteCtx, {
     data: voteData,
     options: {
         scales: {
+            x:{
+                title:{
+                    display:true,
+                    text: 'Mesi/Anni'
+                }
+            },
             y: {
-                beginAtZero: true
+                beginAtZero: true,
+                title:{
+                    display: true,
+                    text : 'Numero Voti'
+                }
             }
         }
     }
 });
+
+
