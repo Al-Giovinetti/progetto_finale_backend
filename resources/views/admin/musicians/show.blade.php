@@ -155,7 +155,7 @@
                             <h2>Messaggi</h2>
                         </div>
                         <div class="card-body">
-                            @foreach($messages as $message)
+                            @foreach($messages->slice(0, 7) as $message)
                             @if($message->musician_id == auth()->user()->musician->id)
                             <div class="mb-3">
                                 <p class="fw-bold">{{$message->name}}</p>
@@ -179,7 +179,8 @@
                             <h2>Recensioni</h2>
                         </div>
                         <div class="card-body">
-                            @foreach($reviews as $review)
+                            @foreach($reviews->slice(0, 7) as $review)
+
                                 @if($review->musician_id == auth()->user()->musician->id && $review->vote != 0)
                                     <div class="mb-3">
                                         <p class="fw-bold">Voto: {{ $review->vote }}</p>
