@@ -5,8 +5,9 @@
 
 <div class="container-fluid">
     <div class="row">
+        
         <!-- Sidebar -->
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
             <div class="position-sticky">
                 <div class="p-4 fs-5">
                     <ul class="nav flex-column">
@@ -286,7 +287,14 @@
 
 
 
-
+    nav#sidebar {
+    position: sticky;
+    top: 0;
+    height: 100%;
+    /* Larghezza fissa o massima */
+    max-width: 200px; /* Puoi regolare la larghezza a tuo piacimento */
+    /* Aggiungi altri stili desiderati */
+}
 
 
 
