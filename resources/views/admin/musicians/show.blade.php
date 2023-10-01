@@ -104,7 +104,7 @@
                                         Sponsor
                                     </h2>
                                     <p>Cronologia</p>
-                                    <ul>
+                                    <ul class="sponsor-height">
                                         <!--per aggiornare il DB digitare nel terminale php artisan schedule:run-->
 
                                         @foreach($user->musician->sponsors as $sponsor)
@@ -290,7 +290,11 @@
     .screen-height{
         max-height: 78vh;
         overflow: auto;
+    }
 
+    .sponsor-height{
+        max-height:200px;
+        overflow: auto;
     }
 
 
