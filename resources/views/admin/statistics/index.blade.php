@@ -2,11 +2,68 @@
 
 @section('content')
 
-<div class="container-fluid">
-    <div class="row mt-5">
+<nav class="navbar bg-body-tertiary fixed-top d-md-none">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Boosician</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+        <div class="offcanvas-header">
+          <h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
+          <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+          <ul class="nav flex-column">
+              <li class="nav-item">
+                  <h1 class="h2">Boosician</h1>
+  
+                  <a class="nav-link {{ Route::current()->getName() == 'admin.home' ? 'active' : '' }}" href="{{ route('admin.home') }}">
+                      Dashboard
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link {{ Route::current()->getName() == 'admin.statistics.index' ? 'active' : '' }}" href="{{ route('admin.statistics.index') }}">
+                      Statistiche
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link {{ Route::current()->getName() == 'admin.messages.index' ? 'active' : '' }}" href="{{ route('admin.messages.index') }}">
+                      Messages
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link {{ Route::current()->getName() == 'admin.reviews.index' ? 'active' : '' }}" href="{{ route('admin.reviews.index') }}">
+                      Reviews
+                  </a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" href="{{ route('admin.createSponsor', $user->musician) }}">
+                      Sponsor
+                  </a>
+              </li>
+              @guest
+              @else
+              <li class="nav-item dropdown">
+                  <a class="dropdown-item nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                      {{ __('Logout') }}
+                  </a>
+                  <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                      @csrf
+                  </form>
+              </li>
+              @endguest
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+<div class="container-fluid mt-5">
+    <div class="row">
         <!-- Barra laterale -->
-            <nav id="sidebar" class="position-sticky  col-md-3 col-lg-2 d-md-block sidebar" >
-                <div class="position-sticky">
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block d-none d-md-block">
+            <div class="position-sticky">
                     <div class="p-4 fs-5">
                         <ul class="nav flex-column">
                             <li class="nav-item">
@@ -54,7 +111,7 @@
             </nav>
 
         <!-- Contenuto principale -->
-        <div class="col-md-8 col-lg-9 justify-content-center">
+        <div class="col-md-8 col-lg-9 justify-content-center  mt-5">
             <div class="card">
                 <div class="card-header">
                     <h3 class="mb-0">Statistics</h3>
@@ -225,4 +282,6 @@
                 font-size: 1rem;
             } */
     }
+
+
     </style>
