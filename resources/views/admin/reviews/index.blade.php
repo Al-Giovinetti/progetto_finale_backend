@@ -171,6 +171,17 @@
     }
 
 
+    p.my_content{
+        font-size: 1.3rem;
+    }
+
+    .vote-red{
+        color: red;
+    }
+
+    .vote-green{
+        color: green;
+    }
 
 
 
