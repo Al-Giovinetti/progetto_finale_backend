@@ -58,7 +58,7 @@
   </div>
 </nav>
 
-<div class="container-fluid">
+<div class="container-fluid mt-5">
     <div class="row">
         <!-- Sidebar -->
         <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block d-none d-md-block">
