@@ -22,7 +22,7 @@ class MessagesController extends Controller
 
        
     
-        return view('admin.messages.index', compact('messages', 'musicianMessages', 'musician'));
+        return view('admin.messages.index', compact('messages', 'musicianMessages', 'musician','user'));
     }
 
     /**

@@ -5,7 +5,7 @@
 <div class="container-fluid">
     <div class="row mt-5">
         <!-- Barra laterale -->
-            <nav id="sidebar" class="position-sticky  col-md-3 col-lg-2 d-md-block bg-light sidebar" >
+            <nav id="sidebar" class="position-sticky  col-md-3 col-lg-2 d-md-block sidebar" >
                 <div class="position-sticky">
                     <div class="p-4 fs-5">
                         <ul class="nav flex-column">
