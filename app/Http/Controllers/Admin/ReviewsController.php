@@ -20,7 +20,7 @@ class ReviewsController extends Controller
         $musician = Musician::all();
         $review = Review::all();
     
-        return view('admin.reviews.index', compact('review', 'musicianReview', 'musician'));
+        return view('admin.reviews.index', compact('review', 'musicianReview', 'musician', 'user'));
     }
 
     /**

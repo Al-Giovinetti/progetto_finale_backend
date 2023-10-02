@@ -1,12 +1,67 @@
 @extends('layouts.app')
 
 @section('content')
+<nav class="navbar bg-body-tertiary fixed-top d-md-none">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Boosician</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+      <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasNavbarLabel"></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+      </div>
+      <div class="offcanvas-body">
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <h1 class="h2">Boosician</h1>
 
+                <a class="nav-link {{ Route::current()->getName() == 'admin.home' ? 'active' : '' }}" href="{{ route('admin.home') }}">
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::current()->getName() == 'admin.statistics.index' ? 'active' : '' }}" href="{{ route('admin.statistics.index') }}">
+                    Statistiche
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::current()->getName() == 'admin.messages.index' ? 'active' : '' }}" href="{{ route('admin.messages.index') }}">
+                    Messages
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link {{ Route::current()->getName() == 'admin.reviews.index' ? 'active' : '' }}" href="{{ route('admin.reviews.index') }}">
+                    Reviews
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('admin.createSponsor', $user->musician) }}">
+                    Sponsor
+                </a>
+            </li>
+            @guest
+            @else
+            <li class="nav-item dropdown">
+                <a class="dropdown-item nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                </a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </li>
+            @endguest
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
 
-<div class="container-fluid">
+<div class="container-fluid mt-5">
     <div class="row">
         <!-- Sidebar -->
-        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
+        <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block d-none d-md-block">
             <div class="position-sticky">
                 <div class="p-4 fs-5">
                     <ul class="nav flex-column">
@@ -55,10 +110,7 @@
         </nav>
 
         <!-- Main content -->
-        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom flex-column">
-
-            </div>
+        <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
             <div class="row">
                 <!-- Profilo -->
                 <div class="col-lg-4">
@@ -80,7 +132,7 @@
                             </div>
                             <hr>
                             <div class="container">
-                                <h5 class="mb-3">{{ $user->name ?? '' }} {{ $currentMusician->surname ?? ''}}</h5>
+                                <h5 class="mb-3">{{ ucfirst($user->name ?? '') }} {{ucfirst( $currentMusician->surname ?? '')}}</h5>
                                 <p>Data di nascita: {{ $currentMusician->birth_date ?? ''}}</p>
                                 <p>Indirizzo: {{ $currentMusician->address ?? ''}}</p>
                                 <p>Numero di telefono: {{ $currentMusician->num_phone ?? ''}}</p>
@@ -91,7 +143,7 @@
                                     <h4>Strumenti Musicali:</h4>
                                     <ul>
                                         @foreach ($user->musician->musicalInstruments as $musicalInstrument)
-                                        <li>{{ $musicalInstrument->name }}</li>
+                                        <li>{{ ucfirst($musicalInstrument->name )}}</li>
                                         @endforeach
                                     </ul>
                                 </div>
@@ -312,6 +364,10 @@
 
         .logo h2 {
             font-size: 1.5rem;
+        }
+
+        main{
+            margin-top: 3rem
         }
     }
 
