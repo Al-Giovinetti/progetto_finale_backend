@@ -111,7 +111,7 @@
 
         <!-- Main content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4 mt-5">
-            <div class="row">
+            <div class="row" style="position: relative;">
                 <!-- Profilo -->
                 <div class="col-lg-4">
                     <div class="card">
@@ -251,35 +251,60 @@
                         </div>
                     </div>
                 </div>
+
+                <!--PopUp x cancellare -->
+                <div class="popup w-50 text-center d-none">
+                    <p>Sei sicuro di volerti cancellare?</p>
+                    <p>Profilo e registrazione andranno persi...</p>
+                    <i class="fa-solid fa-trash-can"></i>
+                    <div class="d-flex justify-content-center pb-2">
+                        <button class="btn btn-warning me-2 sicurezzaY">Si</button>
+                        <button class="btn btn-warning sicurezzaN">No</button>
+                    </div>
+                </div>
+
             </div>
+        </main>
     </div>
-    </main>
 </div>
-
-
-
-
-
 
 
 @endsection
 
 @section('js')
+
 <script>
     //Quando vuoi cancellare il profilo ti chiede prima la conferma
     const formCanc = document.querySelector('form.form-canc');
     console.log(formCanc);
 
+    const popup = document.querySelector('.popup')
+    const btnCancYes = document.querySelector('button.sicurezzaY')
+    const btnCancNo = document.querySelector('button.sicurezzaN')
+
     formCanc.addEventListener('submit', function(event) {
         event.preventDefault();
-        const userConfirm = window.confirm('Sei sicuro di volerti cancellare dalla piattaforma? Profilo e registrazione andranno persi ');
-        if (userConfirm) {
-            formCanc.submit()
-        }
-    })
+        //popup.classList.add('d-block')
+        popup.classList.remove('d-none')
 
-    //A seconda di che radio preme l' utente compare di inserire il file o l'url
+        let result =""
+        btnCancNo.addEventListener('click',function(){
+            result="no"
+            if(result=="no"){
+                popup.className=('d-none')
+                popup.className=('popup w-50 text-center d-none ')
+            }
+        })
+        btnCancYes.addEventListener('click',function(){
+            result="yes"
+            if(result=="yes"){
+                formCanc.submit()
+                popup.className=('popup w-50 text-center d-none')
+            }
+        })
+    })
 </script>
+
 @endsection
 
 
@@ -348,6 +373,24 @@
         max-height:200px;
         overflow: auto;
     }
+
+    .popup{
+    padding: 0.5rem;
+    position: absolute;
+    top:50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    background-color: white;
+    border: 2px solid rgb(13, 110, 253);
+    border-radius: 15px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+
+.popup i{
+    color: #f88936;
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
 
 
 
