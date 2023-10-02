@@ -49,7 +49,6 @@ class BoosicianController extends Controller
     {
 
 
-
         $data = $request->validate([
             'surname' => 'required',
             'birth_date' => 'required|date',
@@ -100,6 +99,7 @@ class BoosicianController extends Controller
      */
     public function edit(Musician $loggedMusician)
     {
+        $user = Auth::user();
         $loggedMusician = Auth::user();
         $musician = Musician::all();
         // $currentMusician = $musician[($loggedMusician->id) - 1];
@@ -112,11 +112,10 @@ class BoosicianController extends Controller
 
         $sponsors = Sponsor::all();
 
-        return view('admin.musicians.edit', compact('currentMusician', 'loggedMusician', 'musical_instruments', 'sponsors'));
+        return view('admin.musicians.edit', compact('currentMusician', 'loggedMusician', 'musical_instruments', 'sponsors', 'user', 'musician'));
         // return dd($currentMusician);
 
     }
-
     /**
      * Update the specified resource in storage.
      */
