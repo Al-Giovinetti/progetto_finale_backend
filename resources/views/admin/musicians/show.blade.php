@@ -77,7 +77,7 @@
                             </div>
                             <hr>
                             <div class="container">
-                                <h5 class="mb-3">{{ $user->name ?? '' }} {{ $currentMusician->surname ?? ''}}</h5>
+                                <h5 class="mb-3">{{ ucfirst($user->name ?? '') }} {{ucfirst( $currentMusician->surname ?? '')}}</h5>
                                 <p>Data di nascita: {{ $currentMusician->birth_date ?? ''}}</p>
                                 <p>Indirizzo: {{ $currentMusician->address ?? ''}}</p>
                                 <p>Numero di telefono: {{ $currentMusician->num_phone ?? ''}}</p>
@@ -88,7 +88,7 @@
                                     <h4>Strumenti Musicali:</h4>
                                     <ul>
                                         @foreach ($user->musician->musicalInstruments as $musicalInstrument)
-                                        <li>{{ $musicalInstrument->name }}</li>
+                                        <li>{{ ucfirst($musicalInstrument->name )}}</li>
                                         @endforeach
                                     </ul>
                                 </div>
