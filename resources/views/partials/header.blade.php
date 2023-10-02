@@ -8,23 +8,7 @@
                     @auth
                         <li class="nav-item">
                             <a class="nav-link {{ Route::current()->getName() == 'admin.home' ? 'active' : '' }}" aria-current="page" href="{{ route('admin.home') }}">
-                                Home
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{Route::current()->getName() == 'admin.statistics.index' ? 'active' : ''}}" aria-current="page" href="{{route('admin.statistics.index')}}">
-                                Statistiche
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{Route::current()->getName() == 'admin.messages.index' ? 'active' : ''}}" aria-current="page" href="{{route('admin.messages.index')}}">
-                                Messaggi
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link {{Route::current()->getName() == 'admin.reviews.index' ? 'active' : ''}}" aria-current="page" href="{{route('admin.reviews.index')}}">
-
-                                Reviews
+                                Dashboard
                             </a>
                         </li>
                     @endauth
