@@ -150,13 +150,13 @@
                 </div>
 
                 <!-- Messaggi -->
-                <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4 ">
                     <div class="card">
                         <div class="card-header">
                             <h2>Messaggi</h2>
                         </div>
-                        <div class="card-body">
-                            @foreach($messages->slice(0, 7) as $message)
+                        <div class="card-body screen-height">
+                            @foreach($messages as $message)
                             @if($message->musician_id == auth()->user()->musician->id)
                             <div class="mb-3">
                                 <p class="fw-bold">{{$message->name}}</p>
@@ -165,6 +165,8 @@
                             <hr>
                             @endif
                             @endforeach
+                        </div>
+                        <div class="card-footer">
                             <form action="{{ route('admin.messages.index')}}" method="GET">
                                 @csrf
                                 <button type="submit" class="btn btn-primary btn-sm mt-3">Show More</button>
@@ -179,9 +181,8 @@
                         <div class="card-header">
                             <h2>Recensioni</h2>
                         </div>
-                        <div class="card-body">
-                            @foreach($reviews->slice(0, 7) as $review)
-
+                        <div class="card-body screen-height">
+                            @foreach($reviews as $review)
                                 @if($review->musician_id == auth()->user()->musician->id && $review->vote != 0)
                                     <div class="mb-3">
                                         <p class="fw-bold">Voto: {{ $review->vote }}</p>
@@ -190,6 +191,8 @@
                                     <hr>
                                 @endif
                             @endforeach
+                        </div>
+                        <div class="card-footer">
                             <form action="{{ route('admin.reviews.index')}}" method="GET">
                                 @csrf
                                 <button type="submit" class="btn btn-primary btn-sm mt-3">Show More</button>
