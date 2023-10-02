@@ -5,7 +5,6 @@
 
 <div class="container-fluid">
     <div class="row">
-        
         <!-- Sidebar -->
         <nav id="sidebar" class="col-md-3 col-lg-2 d-md-block sidebar">
             <div class="position-sticky">
@@ -57,9 +56,6 @@
 
         <!-- Main content -->
         <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap pt-3 pb-2 mb-3 border-bottom flex-column">
-
-            </div>
             <div class="row">
                 <!-- Profilo -->
                 <div class="col-lg-4">
@@ -288,16 +284,19 @@
             } */
     }
 
+    .screen-height{
+        max-height: 78vh;
+        overflow: auto;
+    }
+
+    .sponsor-height{
+        max-height:200px;
+        overflow: auto;
+    }
 
 
-    nav#sidebar {
-    position: sticky;
-    top: 0;
-    height: 100%;
-    /* Larghezza fissa o massima */
-    max-width: 200px; /* Puoi regolare la larghezza a tuo piacimento */
-    /* Aggiungi altri stili desiderati */
-}
+
+
 
 
 
